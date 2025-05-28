@@ -1,0 +1,38 @@
+/* Tipografia personalizada */
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('fonts/coolveticarg-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+  
+  /* Variáveis globais */
+  :root {
+    /* Cores principais */
+    --primary-color: #99dd81;
+    --secondary-color: #a8e890;
+    --tertiary-color: #cced9d;
+    --quaternary-color: #ebf8d8;
+    --background-color: #ffffff;
+    --text-color: #333333;
+  
+    /* Tipografia */
+    --font-main: 'Coolvetica';
+    --font-regular: Sans-serif;
+  
+    /* Tamanhos */
+    --font-size-small: 14px;
+    --font-size-base: 16px;
+    --font-size-title: 24px;
+    --font-size-large: 32px;
+  }
+
+  /* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  max-height: 100%;
+  font-family: var(--font-regular);
+}

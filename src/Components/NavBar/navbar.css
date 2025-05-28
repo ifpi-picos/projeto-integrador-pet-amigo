@@ -1,0 +1,24 @@
+@import '../../context/variables.css';
+
+nav{
+    background-color: aqua;
+    margin: 1.8rem 6rem 1.8rem 6rem;
+    padding: 0.35rem 2rem 0.35rem 2rem;
+    border-radius: 15px;
+}
+
+.nav-logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.3rem;
+    img{
+        height: 3rem;
+        border-radius: 10px; 
+    }
+    h1{
+        font-size: 2rem;
+        font-family: var(--font-main);
+    }
+}

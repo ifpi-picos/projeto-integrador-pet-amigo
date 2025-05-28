@@ -1,0 +1,6 @@
+@import '../../context/variables.css';
+
+.home-page {
+    display: flex;
+    flex-direction: row;
+}
