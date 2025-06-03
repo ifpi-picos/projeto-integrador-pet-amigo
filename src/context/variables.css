@@ -6,29 +6,31 @@
   font-style: normal;
 }
 
-  
-  /* Variáveis globais */
-  :root {
-    /* Cores principais */
-    --primary-color: #99dd81;
-    --secondary-color: #a8e890;
-    --tertiary-color: #cced9d;
-    --quaternary-color: #ebf8d8;
-    --background-color: #ffffff;
-    --text-color: #333333;
-  
-    /* Tipografia */
-    --font-main: 'Coolvetica';
-    --font-regular: Sans-serif;
-  
-    /* Tamanhos */
-    --font-size-small: 14px;
-    --font-size-base: 16px;
-    --font-size-title: 24px;
-    --font-size-large: 32px;
-  }
+/* Variáveis globais */
+:root {
+  /* Cores principais da nova identidade */
+  --green-primary: #539f39; /* Cor da identidade principal e detalhes em verde */
+  --white-background: #f4f4f4; /* Cor de fundo principal da interface */
+  --lightgray-background: #dddddd; /* Cor de fundo para seções secundárias da interface */
+  --darkgray-background: #8d8d8d; /* Cor de fundo para seções terciárias da interface */
+  --black-text-details: #000000; /* Cor para texto principal e detalhes em preto */
 
-  /* Reset básico */
+  /* Tipografia */
+  --font-main: 'Coolvetica';
+  --font-regular: Sans-serif; 
+
+  /* Tamanhos */
+  --font-size-small: 14px;
+  --font-size-base: 16px;
+  --font-size-title: 24px;
+  --font-size-large: 32px;
+
+  /*========== SideBar ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/* Reset básico */
 * {
   margin: 0;
   padding: 0;
@@ -36,3 +38,132 @@
   max-height: 100%;
   font-family: var(--font-regular);
 }
+
+
+
+
+/*
+Exemplo de como você usaria as variáveis:
+
+Este bloco inteiro está comentado para servir apenas como referência
+e não aplicará estilos diretamente à sua página.
+Para usar, copie as regras desejadas e aplique-as aos seus seletores.
+
+Estilos Globais da Página
+body {
+  background-color: var(--white-background);
+  color: var(--black-text-details);
+  font-family: var(--font-main), var(--font-regular);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+}
+
+Títulos
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-main);
+  color: var(--green-primary);
+  margin-bottom: 0.75em;
+}
+
+h1 {
+  font-size: var(--font-size-large);
+}
+
+h2 {
+  font-size: var(--font-size-title);
+}
+
+h3 {
+  font-size: calc(var(--font-size-base) * 1.25);
+}
+
+Parágrafos e Texto Geral
+p {
+  margin-bottom: 1em;
+  color: var(--black-text-details);
+}
+
+a {
+  color: var(--green-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+Botões
+.button-primary {
+  display: inline-block;
+  background-color: var(--green-primary);
+  color: var(--white-background);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.button-primary:hover {
+  background-color: #468830; /* Exemplo de cor de hover, idealmente seria uma variável como --green-primary-hover 
+}
+
+.button-secondary {
+  display: inline-block;
+  background-color: var(--lightgray-background);
+  color: var(--black-text-details);
+  padding: 10px 20px;
+  border: 1px solid var(--green-primary);
+  border-radius: 5px;
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button-secondary:hover {
+  background-color: var(--green-primary);
+  color: var(--white-background);
+}
+
+Seções e Layout
+.main-content {
+  padding: 20px;
+}
+
+.section-highlight {
+  background-color: var(--lightgray-background);
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 5px solid var(--green-primary);
+}
+
+.footer {
+  background-color: var(--black-text-details);
+  color: var(--white-background);
+  padding: 20px;
+  text-align: center;
+  font-size: var(--font-size-small);
+}
+
+.footer a {
+  color: var(--green-primary);
+}
+
+Ícones (exemplo se você usar fontes de ícones ou SVGs inline)
+.icon {
+  fill: var(--green-primary);
+  color: var(--green-primary);
+  font-size: var(--font-size-title);
+}
+
+.small-text-detail {
+    font-size: var(--font-size-small);
+    color: var(--black-text-details);
+    opacity: 0.8;
+}
+*/
