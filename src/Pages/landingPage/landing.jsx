@@ -3,7 +3,7 @@ import './landing.css';
 
 import Header from './components/header.jsx';
 import Main from './components/main.jsx';
-import About from './components/about.jsx';
+import AboutCarrosel from './components/aboutCarrosel.jsx';
 import Services from './components/services.jsx';
 import Footer from './components/footer.jsx';
 
@@ -13,7 +13,7 @@ function LandingPage() {
       <Header />
       <main>
         <Main />
-        <About />
+        <AboutCarrosel />
         <Services />
       </main>
       <Footer />
