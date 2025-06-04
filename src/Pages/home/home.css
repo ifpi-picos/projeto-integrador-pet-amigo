@@ -2,5 +2,6 @@
 
 .home-page {
   background-color: var(--lightgray-background);
+  padding : 2.5rem 2rem;
   height: 100vh;
 }
