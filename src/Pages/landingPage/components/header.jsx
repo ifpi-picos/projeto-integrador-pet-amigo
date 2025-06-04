@@ -9,7 +9,7 @@ function Header() {
             <img className='landing-logo' src={logo} alt="logo" />
             <h2>Pet Amigo</h2>
         </div>
-        <ul>
+        <ul className='nav-links-container'>
             <li><a className='nav-links' href="#home">Início</a></li>
             <li><a className='nav-links' href="#about">GitHub</a></li>
             <li><a className='nav-links' href="#services">Instagram</a></li>

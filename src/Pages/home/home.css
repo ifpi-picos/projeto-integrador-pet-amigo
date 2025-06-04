@@ -1,6 +1,7 @@
 @import '../../context/variables.css';
 
 .home-page {
-    display: flex;
-    flex-direction: row;
+  background-color: var(--lightgray-background);
+  padding : 2.5rem 2rem;
+  height: 100vh;
 }
