@@ -38,7 +38,7 @@
 
 .pet-icon {
   font-size: 120px;
-  color: var(--primary-color, #333);
+  color: var(--green-primary, #333);
   opacity: 0.15;
 }
 
@@ -46,13 +46,13 @@
   position: absolute;
   font-size: 48px;
   font-weight: 700;
-  color: var(--primary-color, #333);
+  color: var(#333);
 }
 
 .not-found-content h1 {
   font-size: 28px;
   font-weight: 600;
-  color: var(--primary-color, #333);
+  color: var(#333);
   margin-bottom: 16px;
 }
 
@@ -68,18 +68,19 @@
   align-items: center;
   justify-content: center;
   padding: 12px;
-  background-color: var(--primary-color, #333);
+  background-color: var(--green-primary, #333);
   color: white;
   border-radius: 10px;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.2s ease-in-out;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
 }
 
 .home-button:hover, 
 .home-button:focus-visible {
-  background-color: var(--secondary-color);
+  background-color: #1fa155;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
@@ -87,7 +88,7 @@
 .home-button svg {
   font-size: 20px;
   margin-right: 8px;
-  color: var(--background-color);
+  color: var(--white-background);
 }
 
 /* Responsive adjustments */

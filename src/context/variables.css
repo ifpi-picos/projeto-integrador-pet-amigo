@@ -9,14 +9,14 @@
 /* Variáveis globais */
 :root {
   /* Cores principais */
-  --green-primary: #539f39;
+  --green-primary: #26cc6b;
   --white-background: #f4f4f4;        /* Usado para fundo principal da página no tema claro */
   --lightgray-background: #dddddd;    /* Usado para fundo da sidebar no tema claro */
   --darkgray-background: #8d8d8d;     /* Usado para ícones/texto */
   --black-text-details: #000000;      /* Usado para texto principal no tema claro */
 
   /* RGB primário */
-  --rgb-green-primary-values: 83, 159, 57;
+  --rgb-green-primary-values: 38, 204, 107;
 
   /* Cores de interação */
   --sidebar-active-item-bg: #e9f5ea; /* Fundo do item ativo no tema claro */
@@ -30,7 +30,7 @@
 
 /* Tema Escuro */
 html[data-theme="dark"] {
-  --green-primary: #539f39;            /* Mantém */
+  --green-primary: #26cc6b;            /* Mantém */
   --white-background: #18191a;        /* Fundo principal da página (MAIS ESCURO) */
   --lightgray-background: #242526;   /* Fundo da sidebar (UM POUCO MAIS CLARO QUE O PRINCIPAL) */
   --darkgray-background: #b0b3b8;       /* Ícones/texto no tema escuro */

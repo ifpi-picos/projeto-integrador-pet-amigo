@@ -46,7 +46,7 @@ function Navbar() {
     return (
         <nav className="sidebar">
             <ul>
-                <li className="sidebar-item sidebar-item-logo">
+                <li className=" sidebar-item-logo">
                     <Link to="/home" className="sidebar-logo">
                         <span className="sidebar-icon">
                             <img src={logo} alt="Pet amigo logo" />

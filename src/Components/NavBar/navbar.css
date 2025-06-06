@@ -46,7 +46,7 @@
     transition: opacity 0.3s ease-in-out 0.15s, transform 0.3s ease-in-out 0.15s, color 0.3s ease-in-out;
     display: inline-block;
     white-space: nowrap;
-    letter-spacing: 0.6px;
+    letter-spacing: 1.5px;
 }
 
 .sidebar-item {
