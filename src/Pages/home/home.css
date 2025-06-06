@@ -15,25 +15,24 @@
   margin-left: 8rem;
 }
 
-@media screen and (max-width: 768px) {
-  .home-page {
-    padding: 1rem;
-    padding-bottom: calc(65px + 2rem);
-  }
-
-  .home-content {
-    margin-left: 0;
-  }
-}
-
 .top-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-
-  background-color: aqua;
 }
+
+.top-logo{
+  display: none;
+  height: 100%;
+  
+}
+
+.top-logo img {
+  max-height: 60px;
+  width: auto;
+  border-radius: 20px;
+} 
 
 .search-bar-container {
   display: flex;
@@ -47,8 +46,8 @@
   height: 60px;
   transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
   border: 1px solid transparent;
+  box-shadow: 0 0 10px var(--box-shadow-color);
 }
-
 
 .search-icon {
   color: var(--black-text-details);
@@ -105,6 +104,7 @@
 
 .top-actions button {
   background-color: var(--white-background);
+  color: var(--black-text-details);
   border: none;
   padding: 0 30px;
   height: 100%;
@@ -113,4 +113,82 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 18px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.top-actions button:hover {
+  background-color: #00000090;
+} 
+
+.profile-container {
+  height: 100%;
+  padding: 0 15px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--white-background);
+  text-decoration: none; 
+  transition: background-color 0.2s ease;
+}
+
+.profile-container:hover {
+  background-color: #00000090;
+}
+
+.profile-container div {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-container div h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--green-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.profile-container div span {
+  font-size: 13px;
+  color: var(--darkgray-background);
+}
+
+.profile-container img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 768px) {
+  .home-page {
+    padding: 1rem;
+    padding-bottom: calc(65px + 2rem);
+  }
+
+  .home-content {
+    margin-left: 0;
+  }
+
+  .search-bar-container {
+    box-shadow: 0 0 5px var(--box-shadow-color);
+  }
+
+  .top-logo{
+    display: block;
+  }
+
+  .top-actions{
+    display: none;
+  }
 }
