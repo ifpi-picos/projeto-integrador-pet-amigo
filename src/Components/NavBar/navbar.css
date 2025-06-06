@@ -1,44 +1,84 @@
 @import '../../context/variables.css';
 
+/* Estilos para Desktop (sem alterações) */
 .sidebar {
-    height: 100%;
-    width: 75px;
+    height: 92vh; /* A altura da sidebar agora ocupa toda a tela */
+    width: 90px;
+    position: fixed;
     z-index: 1;
     background: var(--white-background);
     overflow: hidden;
     padding-top: 10px;
-    transition: width 0.6s ease;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: width 0.6s ease, background-color 0.3s ease;
+    box-shadow: 0 0 10px var(--box-shadow-color);
     border-radius: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar:hover {
-    width: 250px;
+    width: 275px;
+}
 
-    .sidebar-text {
-        opacity: 1;
-    }
+.sidebar:hover .sidebar-text,
+.sidebar:hover .sidebar-text-logo,
+.sidebar:hover .sidebar-item.night-mode-item .switch {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .sidebar ul {
     position: relative;
-    height: 97vh;
+    list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
-.sidebar-item{
-    list-style: none;
-    margin: 5px 0rem;
+.sidebar-text-logo {
+    font-family: var(--font-main);
+    color: var(--green-primary);
+    font-size: 28px;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.3s ease-in-out 0.15s, transform 0.3s ease-in-out 0.15s, color 0.3s ease-in-out;
+    display: inline-block;
+    white-space: nowrap;
+    letter-spacing: 1.5px;
+}
+
+.sidebar-item {
+    margin: 6px 0rem;
     border-radius: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease-in-out;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.sidebar ul li:hover {
-    background: var(--lightgray-background);
-    transition: background 0.3s ease-in-out;
-    a {
-        color: var(--green-primary);
-    }
+.sidebar-item-push-to-bottom {
+    margin-top: auto;
+}
+
+.sidebar-item:last-child {
+    margin-bottom: 10px;
+}
+
+.sidebar-item:hover {
+    background: var(--sidebar-active-item-bg); /* Usando a mesma cor do item ativo para o hover */
+}
+
+html[data-theme="dark"] .sidebar-item:hover {
+    background-color: rgba(var(--rgb-green-primary-values), 0.1); /* Fundo sutil no hover para tema escuro */
+}
+
+.sidebar-item:hover .sidebar-text,
+.sidebar-item:hover .sidebar-icon {
+    color: var(--green-primary);
 }
 
 .sidebar ul li a {
@@ -47,53 +87,225 @@
     white-space: nowrap;
     text-decoration: none;
     color: var(--black-text-details);
+    width: 100%;
+    padding: 0;
+    height: 100%;
 }
 
 .sidebar ul li .sidebar-logo {
-    margin-bottom: 50px;
-    img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-    }
-
-    span {
-        font-size: 30px;
-        
-    }
+    margin-bottom: 15px;
 }
 
-
-.sidebar ul li .sidebar-logo .sidebar-text {
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.sidebar ul li:last-child {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+.sidebar ul li .sidebar-logo img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
 }
 
 .sidebar-icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 75px;
-    height: 75px;
+    min-width: 90px;
+    height: 55px;
     font-size: 22px;
     color: var(--darkgray-background);
+    transition: color 0.3s ease-in-out;
 }
 
 .sidebar-text {
     display: flex;
     align-items: center;
-    height: 60px;
-    font-size: 16px;
+    font-size: 15px;
     letter-spacing: 0.6px;
     font-weight: 600;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+    transform: translateX(-10px);
+    transition: opacity 0.3s ease-in-out 0.15s, color 0.3s ease-in-out, transform 0.3s ease-in-out 0.15s;
     font-family: var(--font-regular);
     color: var(--darkgray-background);
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.sidebar-item.active::before {
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50%;
+    width: 4px;
+    background-color: var(--green-primary);
+    border-radius: 0 4px 4px 0;
+}
+
+.sidebar-item.active .sidebar-text,
+.sidebar-item.active .sidebar-icon {
+    color: var(--green-primary);
+}
+
+.sidebar-item.active {
+    background-color: var(--sidebar-active-item-bg);
+}
+
+.night-mode-item {
+    cursor: default;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+/* Estilos do Switch (sem alterações) */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+    margin-left: auto;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.3s ease-in-out 0.15s, transform 0.3s ease-in-out 0.15s;
+}
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--switch-slider-bg);
+    transition: .4s;
+    border-radius: 22px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px; width: 16px;
+    left: 3px; bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider { background-color: var(--green-primary); }
+input:checked + .slider:before { transform: translateX(18px); }
+
+
+
+
+input:checked + .slider:before {
+    transform: translateX(18px);
+}
+
+
+/* ======================================================= */
+/* =========== ESTILOS PARA RESPONSIVIDADE (MOBILE) =========== */
+/* ======================================================= */
+
+/* Aplica estes estilos em telas com largura máxima de 768px */
+@media (max-width: 768px) {
+    /* Opcional: Adicionar um padding no body ou no container principal (veja home.css) */
+
+    .sidebar {
+        /* Transforma em barra inferior fixa */
+        position: fixed;
+        height: 65px; /* Altura da barra inferior */
+
+        /* CORREÇÃO DE POSICIONAMENTO PARA BARRA FLUTUANTE */
+        /* Removemos o margin que causava o overflow */
+        margin: 0; 
+        /* Definimos a posição a partir da parte inferior e centralizamos */
+        bottom: 1rem; /* Distância da borda inferior da tela */
+        left: 50%; /* Posiciona o início da barra no meio da tela */
+        transform: translateX(-50%); /* Move a barra 50% da sua própria largura para a esquerda, centralizando-a perfeitamente */
+        width: calc(100% - 2rem); /* A largura será 100% menos as "margens" laterais (1rem de cada lado) */
+        
+        /* Ajustes de aparência */
+        border-radius: 20px; /* Bordas arredondadas ficam bem em uma barra flutuante */
+        padding: 0;
+        box-shadow: 0 4px 12px var(--box-shadow-color); /* Sombra mais pronunciada para o efeito flutuante */
+    }
+
+    /* Impede a sidebar de expandir no hover em telas pequenas */
+    .sidebar:hover {
+        width: calc(100% - 2rem); /* Garante que a largura não mude no hover */
+    }
+
+    .sidebar ul {
+        width: 100%;
+        height: 100%;
+        flex-direction: row; /* Itens lado a lado */
+        justify-content: space-around; /* Distribui os itens igualmente */
+        align-items: center;
+        flex-grow: 0;
+    }
+
+    /* ESCONDE OS ITENS NÃO DESEJADOS NO MOBILE */
+    .sidebar-item-logo,
+    .sidebar-item-push-to-bottom, /* Esconde "Settings" */
+    .night-mode-item,
+    /* Esconde o último item da lista, que é o "Logout" */
+    .sidebar ul li:last-child {
+        display: none;
+    }
+
+    .sidebar-item {
+        margin: 0;
+        padding: 5px 2px;
+        flex-grow: 1; /* Faz cada item ocupar o mesmo espaço */
+        height: 100%;
+        border-radius: 15px; /* Bordas arredondadas menores para os itens */
+    }
+
+    /* Ajusta o link para ser o container flex vertical */
+    .sidebar ul li a {
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        gap: 4px; /* Espaço entre o ícone e o texto */
+        border-radius: 15px; /* Garante que o raio da borda se aplique ao link também */
+    }
+    
+    .sidebar-icon {
+        min-width: auto; /* Reseta a largura mínima do ícone */
+        height: auto; /* Altura automática */
+        font-size: 24px;
+        margin-bottom: 0; /* O 'gap' no 'a' cuida do espaçamento */
+    }
+
+    /* AJUSTE PARA O TEXTO FICAR VISÍVEL E ABAIXO DO ÍCONE */
+    .sidebar-text {
+        opacity: 1; /* Texto sempre visível */
+        transform: none; /* Reseta transformação */
+        font-size: 11px;
+        font-weight: 500;
+        height: auto;
+        padding: 0;
+        transition: none;
+        letter-spacing: normal;
+    }
+
+    /* Transforma a barra lateral do item ativo em uma barra superior */
+    .sidebar-item.active::before {
+        top: 2px; /* Posição da barra em cima */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 28px; /* Largura da barra superior */
+        height: 3px; /* Espessura da barra */
+        border-radius: 3px;
+    }
+
+    /* Remove fundo do hover e do item ativo no mobile para um visual mais limpo */
+    .sidebar-item:hover,
+    .sidebar-item.active {
+        background: transparent; 
+    }
+
+    html[data-theme="dark"] .sidebar-item:hover,
+    html[data-theme="dark"] .sidebar-item.active {
+        background: transparent;
+    }
+
+    /* Mantém a cor do ícone e texto do item ativo */
+    .sidebar-item.active .sidebar-text,
+    .sidebar-item.active .sidebar-icon {
+        color: var(--green-primary);
+    }
 }
