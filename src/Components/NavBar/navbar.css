@@ -1,8 +1,7 @@
 @import '../../context/variables.css';
 
-/* Estilos para Desktop (sem alterações) */
 .sidebar {
-    height: 92vh; /* A altura da sidebar agora ocupa toda a tela */
+    height: 92vh;
     width: 90px;
     position: fixed;
     z-index: 1;
@@ -68,16 +67,16 @@
     margin-bottom: 10px;
 }
 
-.sidebar-item:hover {
-    background: var(--sidebar-active-item-bg); /* Usando a mesma cor do item ativo para o hover */
+.sidebar-item a:hover {
+    background: var(--sidebar-active-item-bg);
 }
 
-html[data-theme="dark"] .sidebar-item:hover {
-    background-color: rgba(var(--rgb-green-primary-values), 0.1); /* Fundo sutil no hover para tema escuro */
+html[data-theme="dark"] .sidebar-item a:hover {
+    background-color: rgba(var(--rgb-green-primary-values), 0.1);
 }
 
-.sidebar-item:hover .sidebar-text,
-.sidebar-item:hover .sidebar-icon {
+.sidebar-item a:hover .sidebar-text,
+.sidebar-item a:hover .sidebar-icon {
     color: var(--green-primary);
 }
 
@@ -90,6 +89,7 @@ html[data-theme="dark"] .sidebar-item:hover {
     width: 100%;
     padding: 0;
     height: 100%;
+    border-radius: 30px;
 }
 
 .sidebar ul li .sidebar-logo {
@@ -128,7 +128,7 @@ html[data-theme="dark"] .sidebar-item:hover {
     white-space: nowrap;
 }
 
-.sidebar-item.active::before {
+.sidebar-item a.active::before {
     content: "";
     position: absolute;
     left: 0px;
@@ -140,12 +140,12 @@ html[data-theme="dark"] .sidebar-item:hover {
     border-radius: 0 4px 4px 0;
 }
 
-.sidebar-item.active .sidebar-text,
-.sidebar-item.active .sidebar-icon {
+.sidebar-item a.active .sidebar-text,
+.sidebar-item a.active .sidebar-icon {
     color: var(--green-primary);
 }
 
-.sidebar-item.active {
+.sidebar-item a.active {
     background-color: var(--sidebar-active-item-bg);
 }
 
@@ -155,7 +155,6 @@ html[data-theme="dark"] .sidebar-item:hover {
     box-sizing: border-box;
 }
 
-/* Estilos do Switch (sem alterações) */
 .switch {
     position: relative;
     display: inline-block;
@@ -205,14 +204,10 @@ input:checked + .slider:before {
     transform: translateX(18px);
 }
 
-/* ======================================================= */
-/* =========== ESTILOS PARA RESPONSIVIDADE (MOBILE) =========== */
-/* ======================================================= */
-
 @media (max-width: 768px) {
     .sidebar {
         position: fixed;
-        height: 65px; /* Altura da barra inferior */
+        height: 65px;
         margin: 0;
         bottom: 1rem;
         left: 50%;
@@ -221,6 +216,7 @@ input:checked + .slider:before {
         border-radius: 20px;
         padding: 0;
         box-shadow: 0 4px 12px var(--box-shadow-color);
+        overflow: visible;
     }
 
     .sidebar:hover {
@@ -277,7 +273,7 @@ input:checked + .slider:before {
         letter-spacing: normal;
     }
 
-    .sidebar-item.active::before {
+    .sidebar-item a.active::before {
         top: 2px;
         left: 50%;
         transform: translateX(-50%);
@@ -286,18 +282,18 @@ input:checked + .slider:before {
         border-radius: 3px;
     }
 
-    .sidebar-item:hover,
-    .sidebar-item.active {
+    .sidebar-item a:hover,
+    .sidebar-item a.active {
         background: transparent;
     }
 
-    html[data-theme="dark"] .sidebar-item:hover,
-    html[data-theme="dark"] .sidebar-item.active {
+    html[data-theme="dark"] .sidebar-item a:hover,
+    html[data-theme="dark"] .sidebar-item a.active {
         background: transparent;
     }
 
-    .sidebar-item.active .sidebar-text,
-    .sidebar-item.active .sidebar-icon {
+    .sidebar-item a.active .sidebar-text,
+    .sidebar-item a.active .sidebar-icon {
         color: var(--green-primary);
     }
 }

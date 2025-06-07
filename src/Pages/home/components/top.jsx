@@ -15,10 +15,13 @@ function Top() {
                 <CiSearch className="search-icon" />
 
                 <input
+                    id="animal-search"     
+                    name="search_query"       
                     className="search-input"
                     type="text"
                     placeholder="Pesquisar animal"
                 />
+                
                 
                 <button className="filter-button">
                     <FaFilter className="filter-icon" />
