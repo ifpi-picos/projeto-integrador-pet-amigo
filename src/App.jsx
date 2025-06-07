@@ -1,16 +1,27 @@
 import React from 'react';
-import Navbar from './Components/NavBar/navbar.jsx';
-import AppRoutes from './routes/router.jsx'; // 1. Importe seu componente de rotas
-import './App.css'; // 2. Opcional: crie um App.css para o layout principal
+import { Routes, Route } from 'react-router-dom';
+
+import LayoutNav from './Layout/LayoutNav.jsx';
+
+import LandingPage from './Pages/landingPage/landing.jsx';
+import Home from './Pages/home/index.jsx';
+import Feed from './Pages/feed/feed.jsx';
+import BadRequest from './Pages/badRequest/error.jsx';
 
 function App() {
   return (
-    <div className="app-container">
-      <Navbar />
-      <main className="app-content">
-        <AppRoutes />
-      </main>
-    </div>
+    <Routes>
+      {/* Grupo de Rotas 1: Páginas SEM a Navbar */}
+      <Route path="/" element={<LandingPage />} />
+      <Route path="*" element={<BadRequest />} />
+
+      {/* Grupo de Rotas 2: Páginas COM a Navbar */}  
+      <Route element={<LayoutNav />}>
+        <Route path="/home" element={<Home />} />
+        <Route path="/feed" element={<Feed />} />
+      </Route>
+
+    </Routes>
   );
 }
 

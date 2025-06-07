@@ -1,7 +1,8 @@
 @import '../../context/variables.css';
 
+/* Estilos para Desktop (sem alterações) */
 .sidebar {
-    height: 92vh; 
+    height: 92vh; /* A altura da sidebar agora ocupa toda a tela */
     width: 90px;
     position: fixed;
     z-index: 1;
@@ -67,16 +68,16 @@
     margin-bottom: 10px;
 }
 
-.sidebar-item a:hover {
-    background: var(--sidebar-active-item-bg); 
+.sidebar-item:hover {
+    background: var(--sidebar-active-item-bg); /* Usando a mesma cor do item ativo para o hover */
 }
 
-html[data-theme="dark"] .sidebar-item a:hover {
-    background-color: rgba(var(--rgb-green-primary-values), 0.1);
+html[data-theme="dark"] .sidebar-item:hover {
+    background-color: rgba(var(--rgb-green-primary-values), 0.1); /* Fundo sutil no hover para tema escuro */
 }
 
-.sidebar-item a:hover .sidebar-text,
-.sidebar-item a:hover .sidebar-icon {
+.sidebar-item:hover .sidebar-text,
+.sidebar-item:hover .sidebar-icon {
     color: var(--green-primary);
 }
 
@@ -89,7 +90,6 @@ html[data-theme="dark"] .sidebar-item a:hover {
     width: 100%;
     padding: 0;
     height: 100%;
-    border-radius: 30px;
 }
 
 .sidebar ul li .sidebar-logo {
@@ -128,7 +128,7 @@ html[data-theme="dark"] .sidebar-item a:hover {
     white-space: nowrap;
 }
 
-.sidebar-item a.active::before {
+.sidebar-item.active::before {
     content: "";
     position: absolute;
     left: 0px;
@@ -140,12 +140,12 @@ html[data-theme="dark"] .sidebar-item a:hover {
     border-radius: 0 4px 4px 0;
 }
 
-.sidebar-item a.active .sidebar-text,
-.sidebar-item a.active .sidebar-icon {
+.sidebar-item.active .sidebar-text,
+.sidebar-item.active .sidebar-icon {
     color: var(--green-primary);
 }
 
-.sidebar-item a.active {
+.sidebar-item.active {
     background-color: var(--sidebar-active-item-bg);
 }
 
@@ -155,15 +155,129 @@ html[data-theme="dark"] .sidebar-item a:hover {
     box-sizing: border-box;
 }
 
-.switch { position: relative; display: inline-block; width: 40px; height: 22px; margin-left: auto; opacity: 0; transform: translateX(-10px); transition: opacity 0.3s ease-in-out 0.15s, transform 0.3s ease-in-out 0.15s; }
-.switch input { opacity: 0; width: 0; height: 0; }
-.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--switch-slider-bg); transition: .4s; border-radius: 22px; }
-.slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
-input:checked + .slider { background-color: var(--green-primary); }
-input:checked + .slider:before { transform: translateX(18px); }
+/* Estilos do Switch (sem alterações) */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+    margin-left: auto;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.3s ease-in-out 0.15s, transform 0.3s ease-in-out 0.15s;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--switch-slider-bg);
+    transition: 0.4s;
+    border-radius: 22px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--green-primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(18px);
+}
+
+/* ======================================================= */
+/* =========== ESTILOS PARA RESPONSIVIDADE (MOBILE) =========== */
+/* ======================================================= */
 
 @media (max-width: 768px) {
-    .sidebar-item a.active::before {
+    .sidebar {
+        position: fixed;
+        height: 65px; /* Altura da barra inferior */
+        margin: 0;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 2rem);
+        border-radius: 20px;
+        padding: 0;
+        box-shadow: 0 4px 12px var(--box-shadow-color);
+    }
+
+    .sidebar:hover {
+        width: calc(100% - 2rem);
+    }
+
+    .sidebar ul {
+        width: 100%;
+        height: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        flex-grow: 0;
+    }
+
+    .sidebar-item-logo,
+    .sidebar-item-push-to-bottom,
+    .night-mode-item,
+    .sidebar ul li:last-child {
+        display: none;
+    }
+
+    .sidebar-item {
+        margin: 0;
+        padding: 5px 2px;
+        flex-grow: 1;
+        height: 100%;
+        border-radius: 15px;
+    }
+
+    .sidebar ul li a {
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        gap: 4px;
+        border-radius: 15px;
+    }
+
+    .sidebar-icon {
+        min-width: auto;
+        height: auto;
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+
+    .sidebar-text {
+        opacity: 1;
+        transform: none;
+        font-size: 11px;
+        font-weight: 500;
+        height: auto;
+        padding: 0;
+        transition: none;
+        letter-spacing: normal;
+    }
+
+    .sidebar-item.active::before {
         top: 2px;
         left: 50%;
         transform: translateX(-50%);
@@ -172,18 +286,18 @@ input:checked + .slider:before { transform: translateX(18px); }
         border-radius: 3px;
     }
 
-    .sidebar-item a:hover,
-    .sidebar-item a.active {
-        background: transparent; 
-    }
-
-    html[data-theme="dark"] .sidebar-item a:hover,
-    html[data-theme="dark"] .sidebar-item a.active {
+    .sidebar-item:hover,
+    .sidebar-item.active {
         background: transparent;
     }
 
-    .sidebar-item a.active .sidebar-text,
-    .sidebar-item a.active .sidebar-icon {
+    html[data-theme="dark"] .sidebar-item:hover,
+    html[data-theme="dark"] .sidebar-item.active {
+        background: transparent;
+    }
+
+    .sidebar-item.active .sidebar-text,
+    .sidebar-item.active .sidebar-icon {
         color: var(--green-primary);
     }
 }
