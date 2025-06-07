@@ -6,10 +6,7 @@ import Top from "./components/top.jsx";
 function Home() {
   return (
     <div className="home-page">
-      <NavBar />
-      <section className="home-content">
         <Top />
-      </section>
     </div>
   );
 }
