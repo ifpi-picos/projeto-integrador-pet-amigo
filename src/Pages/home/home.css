@@ -46,7 +46,6 @@
   border: none;
   outline: none;
   background: transparent;
-  padding: 0;
   height: 100%;
   font-size: 16px;
   color: var(--black-text-details);
@@ -139,7 +138,6 @@ html[data-theme="dark"] .profile-container:hover {
   font-size: 16px;
   font-weight: 600;
   color: var(--green-primary);
-  margin: 0;
   line-height: 1.2;
 }
 
@@ -217,7 +215,6 @@ html[data-theme="dark"] .profile-container:hover {
   color: var(--green-primary);
   background-color: transparent;
   border: none;
-  padding: 0;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -273,7 +270,7 @@ html[data-theme="dark"] .profile-container:hover {
   }
   
   .carousel-button {
-    font-size: 15px;
+    display: none;
   }
   
   .dot {
@@ -409,7 +406,6 @@ html[data-theme="dark"] .profile-container:hover {
 .animal-card .animal-info p {
   font-size: 0.9rem;
   color: var(--darkgray-background);
-  margin: 0;
 }
 
 .animal-location {
@@ -426,7 +422,7 @@ html[data-theme="dark"] .profile-container:hover {
     flex-direction: row;
 
     h1{
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       letter-spacing: 2px;
     }
 
