@@ -1,52 +1,115 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-// Lista de imagens que nosso carrossel vai usar
-const imagens = [
-    "https://images.unsplash.com/photo-1509043759401-136742328bb3?q=80&w=2574&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1511871893393-82e9c16b81e3?q=80&w=2574&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2670&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2670&auto=format&fit=crop"
+const slides = [
+    { 
+        imageUrl: "https://images.unsplash.com/photo-1509043759401-136742328bb3?q=80&w=2574&auto=format&fit=crop",
+        linkUrl: "/destino/praia" 
+    },
+    { 
+        imageUrl: "https://images.unsplash.com/photo-1511871893393-82e9c16b81e3?q=80&w=2574&auto=format&fit=crop",
+        linkUrl: "/destino/cidade" 
+    },
+    { 
+        imageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2670&auto=format&fit=crop",
+        linkUrl: "/destino/lago" 
+    },
+    { 
+        imageUrl: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2670&auto=format&fit=crop",
+        linkUrl: "/destino/montanha" 
+    }
 ];
 
 function Carousel() {
     const [slideAtual, setSlideAtual] = useState(0);
+    const [touchStart, setTouchStart] = useState(null);
+    const [touchEnd, setTouchEnd] = useState(null);
 
-    // Funções para navegar
+    const navigate = useNavigate();
+    const swipeInProgress = useRef(false);
+
+    const minSwipeDistance = 50; 
+
     const proximoSlide = () => {
-        setSlideAtual(slideAtual === imagens.length - 1 ? 0 : slideAtual + 1);
+        setSlideAtual(current => current === slides.length - 1 ? 0 : current + 1);
     };
 
     const slideAnterior = () => {
-        setSlideAtual(slideAtual === 0 ? imagens.length - 1 : slideAtual - 1);
+        setSlideAtual(current => current === 0 ? slides.length - 1 : current - 1);
     };
 
-    // Efeito para autoplay
     useEffect(() => {
-        const intervalId = setInterval(proximoSlide, 5000); // Muda a cada 5 segundos
-        return () => clearInterval(intervalId); // Limpa o timer
-    }, [slideAtual]);
+        const intervalId = setInterval(proximoSlide, 5000);
+        return () => clearInterval(intervalId);
+    }, []);
 
-    // Calcula o valor para a propriedade 'transform' do CSS
+    const onTouchStart = (e) => {
+        swipeInProgress.current = false;
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+        if (touchStart && Math.abs(touchStart - e.targetTouches[0].clientX) > 10) {
+            swipeInProgress.current = true;
+        }
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe || isRightSwipe) {
+            isLeftSwipe ? proximoSlide() : slideAnterior();
+        }
+        
+        setTouchStart(null);
+        setTouchEnd(null);
+    };
+
+    const handleClick = (linkUrl) => {
+        if (swipeInProgress.current) {
+            return;
+        }
+        navigate(linkUrl);
+    };
+
     const wrapperStyle = {
         transform: `translateX(-${slideAtual * 100}%)`
     };
 
     return (
         <div className="carousel-container">
-            {/* O wrapper que se move para criar o efeito de slide */}
-            <div className="carousel-wrapper" style={wrapperStyle}>
-                {imagens.map((imagemUrl, index) => (
-                    <img key={index} src={imagemUrl} alt={`Imagem do carrossel ${index + 1}`} />
+            <div 
+                className="carousel-wrapper" 
+                style={wrapperStyle}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+            >
+                {slides.map((slide, index) => (
+                    <div 
+                        key={index} 
+                        className="carousel-slide-link"
+                        onClick={() => handleClick(slide.linkUrl)}
+                    >
+                        <img 
+                            src={slide.imageUrl} 
+                            alt={`Imagem do carrossel ${index + 1}`}
+                            draggable="false"
+                        />
+                    </div>
                 ))}
             </div>
 
-            {/* Botões de navegação */}
             <button onClick={slideAnterior} className="carousel-button prev">&#10094;</button>
             <button onClick={proximoSlide} className="carousel-button next">&#10095;</button>
 
-            {/* Indicadores de posição (bolinhas) */}
             <div className="carousel-dots">
-                {imagens.map((_, index) => (
+                {slides.map((_, index) => (
                     <span
                         key={index}
                         className={index === slideAtual ? 'dot active' : 'dot'}

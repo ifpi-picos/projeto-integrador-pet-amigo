@@ -174,35 +174,42 @@ html[data-theme="dark"] .profile-container:hover {
 }
 
 
-
-/* Container principal do carrossel */
-.carousel-container {
-  width: 100%;
-  height: 50vh;
-  margin: 2rem auto; /* Centraliza e adiciona espaço */
-  border-radius: 20px;
-  position: relative; /* Essencial para posicionar elementos filhos de forma absoluta */
-  overflow: hidden; /* A MÁGICA ACONTECE AQUI: esconde o que está fora do container */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); 
-}
-
-/* Wrapper que contém todas as imagens */
 .carousel-wrapper {
-  display: flex; /* Coloca as imagens lado a lado */
+  display: flex;
   height: 100%;
-  /* Anima a propriedade 'transform' para criar o efeito de deslize */
   transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1);
+  cursor: grab;
 }
 
-/* Estilo para cada imagem dentro do wrapper */
+.carousel-wrapper:active {
+  cursor: grabbing;
+}
+
+.carousel-slide-link {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  display: block;
+}
+
 .carousel-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
-  flex-shrink: 0; /* Impede que as imagens encolham */
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-/* Estilos para os botões de avançar/voltar */
+.carousel-container {
+  width: 100%;
+  height: 50vh;
+  margin: 2rem auto;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
 .carousel-button {
   position: absolute;
   top: 50%;
@@ -231,7 +238,6 @@ html[data-theme="dark"] .profile-container:hover {
   right: 15px;
 }
 
-/* Estilos para os indicadores (bolinhas) */
 .carousel-dots {
   position: absolute;
   bottom: 20px;
@@ -262,16 +268,170 @@ html[data-theme="dark"] .profile-container:hover {
 
 @media screen and (max-width: 768px) {
   .carousel-container {
-    height: 20vh; /* Ajusta a altura do carrossel para telas menores */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05); 
+    height: 20vh;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
   }
-
+  
   .carousel-button {
     font-size: 15px;
   }
-
+  
   .dot {
     width: 6px;
     height: 6px;
+  }
+}
+
+
+.catalog-container {
+  width: 100%;
+}
+
+.catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.catalog-header h1 {
+  font-family: var(--font-main);
+  font-size: 2rem;
+  color: var(--black-text-details);
+  letter-spacing: 3px;
+}
+
+.catalog-header .see-all-link {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--green-primary);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.catalog-header .see-all-link:hover {
+  opacity: 0.8;
+}
+
+.catalog-grid {
+  display: grid;
+  /* Grid responsivo: cria colunas de no mínimo 260px,
+     e preenche o espaço disponível. O número de colunas se ajusta
+     automaticamente com o tamanho da tela. */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 3fr));
+}
+
+
+/* --- Estilos para o Esqueleto de Carregamento --- */
+.animal-card.skeleton {
+  cursor: default;
+}
+.animal-card.skeleton:hover {
+  transform: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.skeleton-img {
+  width: 100%;
+  height: 220px;
+  background: var(--skeleton-loading-color);
+}
+
+.skeleton-info {
+  padding: 1rem;
+}
+
+.skeleton-text {
+  height: 24px;
+  width: 80%;
+  background: var(--skeleton-loading-color);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+.skeleton-text.short {
+  width: 50%;
+  height: 18px;
+}
+
+/* Efeito de brilho para o esqueleto */
+.skeleton-img, .skeleton-text {
+  background-image: linear-gradient(90deg, var(--skeleton-loading-color) 0px, #f5f5f5 40px, var(--skeleton-loading-color) 80px);
+  background-size: 600px;
+  animation: skeleton-shine 1.5s infinite linear;
+}
+
+@keyframes skeleton-shine {
+  0% {
+      background-position: -200px;
+  }
+  100% {
+      background-position: 400px;
+  }
+}
+
+.animal-card {
+  background-color: var(--white-background);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden; /* Garante que a imagem com borda arredondada não vaze */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none ;
+  margin-top: 2rem;
+}
+
+.animal-card:hover {
+  transform: translateY(-8px); /* Efeito de "levantar" o card */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.animal-card img {
+  width: 100%;
+  height: 220px; /* Altura fixa para a imagem */
+  object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+}
+
+.animal-card .animal-info {
+  padding: 1rem;
+}
+
+.animal-card .animal-info h3 {
+  font-family: var(--font-main);
+  color: var(--black-text-details);
+  font-size: 1.25rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.animal-card .animal-info p {
+  font-size: 0.9rem;
+  color: var(--darkgray-background);
+  margin: 0;
+}
+
+.animal-location {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Espaço entre o ícone e o texto */
+  font-size: 0.85rem;
+  margin-top: 10px !important; /* !important para sobrescrever o margin: 0 do seletor acima, se necessário */
+  color: var(--darkgray-background);
+}
+
+@media screen and (max-width: 768px) {
+  .catalog-header {
+    flex-direction: row;
+
+    h1{
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+    }
+
+    span {
+      font-size: 0.75rem;
+    }
   }
 }
