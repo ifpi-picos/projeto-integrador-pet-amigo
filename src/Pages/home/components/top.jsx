@@ -1,5 +1,4 @@
 import React from "react";
-import '../home.css';
 import { CiSearch } from "react-icons/ci";
 import { FaFilter } from "react-icons/fa6";
 import { RiHeart3Fill } from "react-icons/ri";
