@@ -314,10 +314,11 @@ html[data-theme="dark"] .profile-container:hover {
 
 .catalog-grid {
   display: grid;
+  gap: 2rem;
   /* Grid responsivo: cria colunas de no mínimo 260px,
-     e preenche o espaço disponível. O número de colunas se ajusta
+  e preenche o espaço disponível. O número de colunas se ajusta
      automaticamente com o tamanho da tela. */
-  grid-template-columns: repeat(auto-fill, minmax(260px, 3fr));
+     grid-template-columns: repeat(auto-fill, minmax(260px, 3fr));
 }
 
 
@@ -378,7 +379,6 @@ html[data-theme="dark"] .profile-container:hover {
   display: flex;
   flex-direction: column;
   text-decoration: none ;
-  margin-top: 2rem;
 }
 
 .animal-card:hover {

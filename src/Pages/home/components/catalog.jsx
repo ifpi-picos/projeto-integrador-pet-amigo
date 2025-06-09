@@ -34,7 +34,7 @@ function Catalog() {
                     location,
                     url_photo
                 `) // Selecionando as colunas com os novos nomes
-                .limit(25);
+                .limit(20);
 
             if (error) {
                 console.error('Erro ao buscar animais:', error);
