@@ -10,7 +10,6 @@ function LayoutComNavbar() {
       <main className="app-content">
         <Outlet />
       </main>
-
     </div>
   );
 }
