@@ -4,7 +4,7 @@ import logo from '../../../assets/logo.jpg';
 
 function Header() {
   return (
-    <header>
+    <header className='header-landing'>
         <div className='logo'>
             <img className='landing-logo' src={logo} alt="logo" />
             <h2>Pet Amigo</h2>

@@ -34,7 +34,7 @@ function Catalog() {
                     location,
                     url_photo
                 `) // Selecionando as colunas com os novos nomes
-                .limit(20);
+                .limit(15);
 
             if (error) {
                 console.error('Erro ao buscar animais:', error);
@@ -57,6 +57,7 @@ function Catalog() {
                 <div className="catalog-grid">
                     {Array.from({ length: 8 }).map((_, index) => <SkeletonCard key={index} />)}
                 </div>
+                <div></div>
             </section>
         );
     }
