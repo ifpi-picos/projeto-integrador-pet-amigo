@@ -57,7 +57,9 @@ function Catalog() {
                 <div className="catalog-grid">
                     {Array.from({ length: 8 }).map((_, index) => <SkeletonCard key={index} />)}
                 </div>
-                <div></div>
+                <div className='see-all-link-mobile'>
+                    <a href="/feed" className="see-all-link"><span>Ver todos</span><FaArrowRight /></a>
+                </div>
             </section>
         );
     }
@@ -72,6 +74,9 @@ function Catalog() {
                 {animais.map(animal => (
                     <AnimalCard key={animal.id} animal={animal} />
                 ))}
+            </div>
+            <div className='see-all-link-mobile'>
+                <a href="/feed" className="see-all-link"><span>Ver todos</span><FaArrowRight /></a>
             </div>
         </section>
     );

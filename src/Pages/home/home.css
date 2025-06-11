@@ -354,10 +354,10 @@ html[data-theme="dark"] .profile-container:hover {
   font-size: 1.1rem;
   letter-spacing: 1.5px;
   text-align: center;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6); /* Sombra para melhorar a legibilidade */
+  text-shadow: 0 1px 5px rgba(0,0,0,0.6); /* Sombra para melhorar a legibilidade */
   
   /* Gradiente para garantir que o texto branco seja legível em qualquer foto */
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, transparent 100%);
 }
 
 .catalog-container {
@@ -392,6 +392,10 @@ html[data-theme="dark"] .profile-container:hover {
 .catalog-header .see-all-link:hover {
   opacity: 0.8;
 }
+.see-all-link-mobile {
+  display: none;
+}
+
 
 .catalog-grid {
   display: grid;
@@ -510,6 +514,24 @@ html[data-theme="dark"] .profile-container:hover {
     span {
       font-size: 0.75rem;
     }
+  }
+  .catalog-header .see-all-link {
+    display: none; /* Esconde o link "Ver todos" em telas menores */
+  }
+  .see-all-link-mobile {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    font-size: 1rem;
+    transition: opacity 0.2s ease;
+  }
+  
+  .see-all-link-mobile a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--green-primary);
+    gap: 5px;
   }
 }
 
