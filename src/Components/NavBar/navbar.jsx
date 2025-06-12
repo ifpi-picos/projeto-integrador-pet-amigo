@@ -9,7 +9,7 @@ import { IoChatbubbleEllipses } from "react-icons/io5";
 import { HiVideoCamera } from "react-icons/hi";
 import { GoHomeFill } from "react-icons/go";
 import { LuLogOut } from "react-icons/lu";
-import logo from "../../assets/logo.jpg"; 
+import logo from "../../assets/logo.png"; 
 
 function Navbar() {
     return (
@@ -18,7 +18,7 @@ function Navbar() {
                 <li className="sidebar-item-logo">
                     <Link to="/home" className="sidebar-logo">
                         <span className="sidebar-icon">
-                            <img src={logo} alt="Pet amigo logo" />
+                            <img src={logo} alt="petamigologo" />
                         </span>
                         <h3>Pet Amigo</h3>
                     </Link>

@@ -1,24 +1,46 @@
 import React from 'react';
+import Header from './header';
 import './landing.css';
 
-import Header from './components/header.jsx';
-import Main from './components/main.jsx';
-import AboutCarrosel from './components/aboutCarrosel.jsx';
-import Services from './components/services.jsx';
-import Footer from './components/footer.jsx'; // Novo rodapé
-
-function LandingPage() {
+const LandingPage = () => {
   return (
-    <div className='landing-page'>
+    <div>
       <Header />
-      <main>
-        <Main />
-        <AboutCarrosel />
-        <Services />
+
+      <main className="landing-content">
+
+        <section id="inicio" className="section">
+          <h2>Início</h2>
+          <p>Conteúdo da seção Início.</p>
+        </section>
+
+        <section id="quem-somos" className="section">
+          <h2>Quem Somos</h2>
+          <p>Conteúdo da seção Quem Somos.</p>
+        </section>
+
+        <section id="funcionalidades" className="section">
+          <h2>Funcionalidades</h2>
+          <p>Conteúdo da seção Funcionalidades.</p>
+        </section>
+
+        <section id="blog" className="section">
+          <h2>Blog</h2>
+          <p>Conteúdo da seção Blog.</p>
+        </section>
+
+        <section id="sobre" className="section">
+          <h2>Sobre</h2>
+          <p>Conteúdo da seção Sobre.</p>
+        </section>
+
       </main>
-      <Footer /> {/* Novo rodapé inserido corretamente aqui */}
+
+      <footer className="landing-footer">
+        <p>© {new Date().getFullYear()} Pet Amigo. Todos os direitos reservados.</p>
+      </footer>
     </div>
   );
-}
+};
 
 export default LandingPage;
