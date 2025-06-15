@@ -13,7 +13,7 @@ function Header() {
             <li><a className='nav-links' href="#home">Início</a></li>
             <li><a className='nav-links' href="#about">GitHub</a></li>
             <li><a className='nav-links' href="#services">Instagram</a></li>
-            <li><a className='login-button' href="#contact">Entrar</a></li>
+            <li><a className='login-button' href="/auth">Entrar</a></li>
         </ul>
     </header>
   );
