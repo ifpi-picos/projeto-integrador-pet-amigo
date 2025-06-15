@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from '../../assets/logo.png'; // substitua pelo caminho real do seu logo
+import logo from '../../assets/logo.png'; 
 
-function Header() {
+const Header = () => {
   return (
     <header className="landing-header">
       <div className="header-left">
@@ -22,6 +22,6 @@ function Header() {
       </div>
     </header>
   );
-}
+};
 
 export default Header;

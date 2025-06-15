@@ -1,5 +1,7 @@
 /* Estilização do HEADER */
-
+body {
+  background-color: #d9d9d9;
+}
 .landing-header {
   position: fixed;
   top: 30px;
@@ -9,7 +11,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #d9d9d9;
+  background-color: #ffffff;
   padding: 25px 50px;
   border-radius:  40px 40px 40px;
   margin: 0;
@@ -79,7 +81,7 @@
 .section {
   padding: 100px 80px;
   text-align: center;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
   margin: 40px 60px;
   border-radius: 20px;
 }
@@ -116,12 +118,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 120px 20px 100px;
-  margin: 60px;
+  padding: 150px 20px 150px;
+  margin: 30px;
   border-radius: 30px;
-  background: linear-gradient(135deg, #F1F9FF, #FFFFFF);
+  background: linear-gradient(135deg, #F1F9FF, #ffffff);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .hero-title {
@@ -195,17 +199,18 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 40px;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: auto;
 }
 
 .footer-column {
   flex: 1;
-  min-width: 220px;
+  min-width: 110px;
 }
 
+
 .footer-column h3 {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   font-size: 1.2rem;
 }
 
@@ -223,7 +228,7 @@
 }
 
 .social-icons a {
-  margin-right: 12px;
+  margin-right: 15px;
   font-size: 1.5rem;
   color: #26CC6B;
 }
@@ -276,4 +281,94 @@
   color: #bbbbbb;
   border-top: 1px solid #444;
   margin-top: 40px;
+}
+
+/* SEÇÃO FUNCIONALIDADES */
+.funcionalidades-section {
+  margin: 150px 30px 30px;
+  padding: 100px 40px;
+  text-align: center;
+  background-color: #f7f7f7;
+  border-radius: 25px;
+}
+
+.funcionalidades-title {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+}
+
+/* Estilização das seções individuais */
+.funcionalidade-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 80px;
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Alternância correta */
+.funcionalidade-item.direita {
+  flex-direction: row-reverse;
+}
+
+.funcionalidade-item.esquerda {
+  flex-direction: row;
+}
+
+.texto {
+  flex: 1;
+  text-align: left;
+  padding: 20px;
+}
+
+.texto h3 {
+  font-size: 1.8rem;
+  color: #26CC6B;
+}
+
+.texto p {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.imagem {
+  flex: 1;
+  text-align: center;
+}
+
+.imagem img {
+  width: 90%;
+  max-width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  .funcionalidade-item {
+    flex-direction: column !important;
+    text-align: center;
+    padding: 30px;
+  }
+
+  .texto {
+    text-align: center;
+  }
+
+  .imagem img {
+    width: 80%;
+  }
+}
+
+.icone {
+  flex: 1;
+  text-align: center;
+}
+
+.icone svg {
+  width: 60px;
+  height: 60px;
 }

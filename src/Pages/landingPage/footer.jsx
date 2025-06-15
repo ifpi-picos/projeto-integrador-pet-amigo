@@ -1,17 +1,15 @@
 import React from 'react';
 import './landing.css';
-import logo from '../../assets/logo.png'; // ajuste o caminho conforme necessário
-
-import { FaWhatsapp } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
+import logo from '../../assets/logo.png'; 
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 
-function Footer() {
-    return (
+const Footer = () => {
+  return (
     <footer className="landing-footer">
       <div className="footer-columns">
 
-        {/* Coluna esquerda */}
+        {/* Coluna Esquerda */}
         <div className="footer-column left">
           <div className="footer-logo">
             <img src={logo} alt="Logo Pet Amigo" className="footer-logo-img" />
@@ -24,7 +22,7 @@ function Footer() {
           </div>
         </div>
 
-        {/* Coluna do meio */}
+        {/* Coluna do Meio */}
         <div className="footer-column middle">
           <h3>Navegação</h3>
           <a href="#inicio">Início</a>
@@ -34,11 +32,12 @@ function Footer() {
           <a href="#sobre">Sobre</a>
         </div>
 
-        {/* Coluna direita */}
+        {/* Coluna Direita */}
         <div className="footer-column right">
           <h3>Dúvidas?</h3>
           <form className="footer-form" onSubmit={(e) => e.preventDefault()}>
-            <textarea placeholder="Digite sua mensagem..." rows="4" />
+            <input type="email" name="reply_to" placeholder="Seu e-mail" required />
+            <textarea name="message" placeholder="Digite sua mensagem..." rows="4" required />
             <button type="submit">Enviar</button>
           </form>
         </div>
