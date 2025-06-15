@@ -9,10 +9,9 @@ import logo from "../../../assets/logo.jpg";
 function Top() {
     return (
         <div className="top-container">
-            <Link to="/home" className="top-logo"><img src={logo} alt="" /></Link>
+            <Link to="/auth" className="top-logo"><img src={logo} alt="" /></Link>
             <div className="search-bar-container">
                 <CiSearch className="search-icon" />
-
                 <input
                     id="animal-search"     
                     name="search_query"       
