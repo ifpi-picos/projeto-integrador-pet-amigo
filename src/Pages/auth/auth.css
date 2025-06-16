@@ -250,8 +250,15 @@ html[data-theme="dark"] .social-button:hover {
 
     .auth-logo {
         justify-content: center;
+        img {
+            width: 3rem;
+            height: 3rem;
+        }
+        h1 {
+            font-size: 1.5rem;
+        }
     }
-  }
+}
 
 
 
@@ -355,7 +362,7 @@ html[data-theme="dark"] .social-button:hover {
 /* Estilo para o botão "Próximo" quando está desabilitado */
 .auth-button:disabled {
     background-color: var(--lightgray-background);
-    color: var(--darkgray-background);
+    color: var(--darkgray-background);  
     cursor: not-allowed;
     opacity: 0.8;
 }   
@@ -370,4 +377,139 @@ html[data-theme="dark"] .social-button:hover {
     font-weight: 700;
     cursor: pointer;
     transition: opacity 0.2s ease;
+}
+/* auth.css */
+
+/* ... (seus estilos existentes como .auth-form-container, .form-subtitle, etc. podem ser mantidos) ... */
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+}
+
+/* Estilo unificado para os campos de input */
+.form-input {
+    width: 100%;
+    height: 56px;
+    padding: 0 1.2rem;
+    border-radius: 20px;
+    border: 1px solid var(--lightgray-background);
+    background-color: var(--white-background);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--black-text-details);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box; /* Garante que padding não altere a largura total */
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--green-primary);
+    box-shadow: 0 0 0 3px rgba(var(--rgb-green-primary-values), 0.2);
+}
+
+.input-hint {
+    font-size: 0.8rem;
+    color: var(--darkgray-background);
+    text-align: left;
+    width: 100%;
+    margin-top: -0.5rem;
+    padding-left: 0.5rem;
+}
+
+/* --- NOVO: Grupo de Senha com Ícone --- */
+.input-with-icon-group {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon-group .form-input {
+    /* Adiciona espaço à direita no input para o ícone não sobrepor o texto */
+    padding-right: 3rem; 
+}
+
+.input-icon-button {
+    position: absolute;
+    right: 1px; /* Posiciona o botão do ícone dentro da borda do input */
+    top: 1px;
+    bottom: 1px;
+    border: none;
+    background: transparent;
+    padding: 0 1rem;
+    cursor: pointer;
+    color: var(--darkgray-background);
+    font-size: 1.2rem;
+}
+
+
+/* --- NOVO: Grupo de Campos Lado a Lado --- */
+.form-row-group {
+    display: flex;
+    gap: 1rem; /* Espaço entre os dois inputs */
+    width: 100%;
+}
+
+
+/* --- Botões de Navegação do Formulário --- */
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+/* Botão "Voltar" */
+.prev-button {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid var(--lightgray-background);
+    background-color: var(--white-background);
+    color: var(--darkgray-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.prev-button:hover {
+    background-color: var(--lightgray-background);
+    color: var(--black-text-details);
+}
+
+/* Botão "Próximo" */
+.next-button { /* Usei .next-button para consistência com os outros formulários */
+    flex-grow: 1;
+    height: 56px;
+    padding: 1rem;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--green-primary);
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.next-button:hover {
+    opacity: 0.9;
+}
+
+.success-icon {
+    font-size: 5rem;
+    border-radius: 50%;
+    color: var(--green-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

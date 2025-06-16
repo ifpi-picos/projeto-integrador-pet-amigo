@@ -11,13 +11,14 @@ import LoginDog from "../../assets/login-dog.png";
 import Logo from "../../assets/logo.jpg";
 
 function Auth() {
-    const [view, setView] = useState('login');
+    const [view, setView] = useState('register');
     const [registerStep, setRegisterStep] = useState(1);
     const [formData, setFormData] = useState({
         user_type: '', 
-        email: '', 
+        email: '',  
         password: '', 
         nome_completo: '', 
+        nome_exibicao: '',
         cpf: '', 
         data_nascimento: '', 
         nome_ong: '', 
@@ -59,7 +60,7 @@ function Auth() {
         // 3. Cadastra o usuário e passa TODOS os outros dados no campo 'options.data'
         // O trigger no Supabase vai pegar esses dados e fazer o INSERT completo.
         const { data, error } = await supabase.auth.signUp({
-            email: finalData.email,
+            email: finalData.email.trim(),
             password: password,
             options: {
                 data: optionsData 

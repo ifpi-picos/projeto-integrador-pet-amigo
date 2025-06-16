@@ -1,111 +1,138 @@
-@import '../../context/variables.css'; /* Ensure this path is correct */
+@import '../../context/variables.css'; /* Garanta que este caminho está correto */
 
-
+/* --- Container Principal e Animação --- */
 .not-found-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  background-color: var(--white-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: var(--white-background);
 }
 
 .not-found-content {
-  max-width: 500px;
-  text-align: center;
-  padding: 40px;
-  animation: fadeIn 0.5s ease-in-out;
+    max-width: 500px;
+    text-align: center;
+    padding: 40px;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+/* --- Bloco de Conteúdo (Ícone, Títulos) --- */
 .not-found-icon {
-  position: relative;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 24px;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 24px;
 }
 
 .pet-icon {
-  font-size: 120px;
-  color: var(--green-primary);
-  opacity: 0.15;
+    font-size: 120px;
+    color: var(--green-primary);
+    opacity: 0.15;
 }
 
 .error-code {
-  position: absolute;
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--black-text-details);
+    position: absolute;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--black-text-details);
 }
 
 .not-found-content h1 {
-  font-size: 28px;
-  font-weight: 600;
-  color: var(--black-text-details);
-  margin-bottom: 16px;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--black-text-details);
+    margin-bottom: 16px;
 }
 
 .not-found-content p {
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--darkgray-background);
-  margin-bottom: 32px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--darkgray-background);
+    margin-bottom: 32px;
 }
 
+/* --- Grupo de Botões de Ação --- */
+.not-found-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem; /* Espaço entre os botões */
+    flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas muito pequenas */
+}
+
+/* Estilo base para os botões */
+.not-found-actions .back-button,
+.not-found-actions .home-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+}
+
+/* Botão Principal (Ir para o Início) */
 .home-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-  background-color: var(--green-primary);
-  color: var(--white-background);
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
-}
-
-.home-button:hover, 
-.home-button:focus-visible {
-  background-color: var(--green-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    background-color: var(--green-primary);
+    color: white; /* Cor do texto e ícone no botão principal */
 }
 
 .home-button svg {
-  font-size: 20px;
-  margin-right: 8px;
-  color: var(--white-background);
+    color: white;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .not-found-content {
-    padding: 30px 20px;
-  }
-  
-  .pet-icon {
-    font-size: 100px;
-  }
-  
-  .error-code {
-    font-size: 40px;
-  }
-  
-  .not-found-content h1 {
-    font-size: 24px;
-  }
+.home-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    opacity: 0.9;
 }
+
+/* Botão Secundário (Voltar) */
+.back-button {
+    background-color: var(--white-background);
+    color: var(--black-text-details);
+    border-color: var(--lightgray-background);
+}
+.back-button svg {
+    color: var(--darkgray-background);
+}
+
+.back-button:hover {
+    border-color: var(--darkgray-background);
+    background-color: var(--lightgray-background);
+}
+
+/* --- Ajustes Responsivos --- */
+@media (max-width: 600px) {
+    .not-found-content {
+        padding: 30px 20px;
+    }
+    .pet-icon {
+        font-size: 100px;
+    }
+    .error-code {
+        font-size: 40px;
+    }
+    .not-found-content h1 {
+        font-size: 24px;
+    }
+} 
