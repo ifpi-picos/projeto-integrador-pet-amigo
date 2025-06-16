@@ -2,8 +2,10 @@ import React from 'react';
 import Header from './header';
 import './landing.css';
 import Inicio from './inicio';
+import QuemSomos from './quemsomos'; // Importação do QuemSomos
 import Footer from './footer';
-import Funcionalidades from './funcionalidades'; // Adicionada a importação
+import Funcionalidades from './funcionalidades';
+import Blog from './blog';
 
 const LandingPage = () => {
   return (
@@ -11,7 +13,9 @@ const LandingPage = () => {
       <Header />
       <main className="landing-content">
         <Inicio />
-        <Funcionalidades /> {/* Adicionada a renderização */}
+        <QuemSomos /> {/* Renderização do QuemSomos após Inicio */}
+        <Funcionalidades />
+        <Blog />
       </main>
       <Footer />
     </div>
