@@ -11,7 +11,7 @@ import LoginDog from "../../assets/login-dog.png";
 import Logo from "../../assets/logo.jpg";
 
 function Auth() {
-    const [view, setView] = useState('register');
+    const [view, setView] = useState('login');
     const [registerStep, setRegisterStep] = useState(1);
     const [formData, setFormData] = useState({
         user_type: '', 

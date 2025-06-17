@@ -44,7 +44,7 @@
 }
 
 .login-button{
-    background-color: var(--primary-color);
+    background-color: var(--green-primary);
     text-decoration: none;
     padding: 0.5rem 2rem;
     border-radius: 20px;
@@ -113,7 +113,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--primary-color);
+    background-color: var(--green-primary);
     color: black;
     padding: 1rem;
     border-radius: 60px;
@@ -131,7 +131,7 @@
     align-items: center;
     text-decoration: none;
     color: black;
-    border: 2px solid var(--primary-color);
+    border: 2px solid var(--green-primary);
     padding: 1rem;
     border-radius: 60px;
     width: 40%;
@@ -139,7 +139,7 @@
 }
 
 .button-2:hover{
-    background-color: var(--primary-color);
+    background-color: var(--green-primary);
     color: white;
 }
 
@@ -225,7 +225,7 @@
   
   .service-icon {
       font-size: 3rem;
-      color: var(--primary-color);
+      color: var(--green-primary);
       margin-bottom: 1rem;
     }
     
@@ -243,7 +243,7 @@
 }
 
 .footer {
-  background-color: var(--primary-color);
+  background-color: var(--green-primary);
   color: white;
   text-align: center;
   padding: 2rem 0;
@@ -290,5 +290,5 @@
 }
 
 .swiper-pagination-bullet {
-  background: var(--primary-color); /* Mesma cor usada nos botões do app */
+  background: var(--green-primary); /* Mesma cor usada nos botões do app */
 }
