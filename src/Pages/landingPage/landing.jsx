@@ -1,24 +1,25 @@
 import React from 'react';
+import Header from './header';
 import './landing.css';
+import Inicio from './inicio';
+import QuemSomos from './quemsomos'; // Importação do QuemSomos
+import Footer from './footer';
+import Funcionalidades from './funcionalidades';
+import Blog from './blog';
 
-import Header from './components/header.jsx';
-import Main from './components/main.jsx';
-import AboutCarrosel from './components/aboutCarrosel.jsx';
-import Services from './components/services.jsx';
-import Footer from './components/footer.jsx';
-
-function LandingPage() {
+const LandingPage = () => {
   return (
-    <div className='landing-page'>
+    <div>
       <Header />
-      <main>
-        <Main />
-        <AboutCarrosel />
-        <Services />
+      <main className="landing-content">
+        <Inicio />
+        <QuemSomos /> {/* Renderização do QuemSomos após Inicio */}
+        <Funcionalidades />
+        <Blog />
       </main>
       <Footer />
     </div>
   );
-}
+};
 
 export default LandingPage;

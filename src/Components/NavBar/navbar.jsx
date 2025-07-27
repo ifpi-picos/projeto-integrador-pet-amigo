@@ -58,7 +58,7 @@ function Navbar() {
                 <li className="sidebar-item-logo">
                     <NavLink to="/home" className="sidebar-logo" end>
                         <span className="sidebar-icon">
-                            <img src={logo} alt="Pet amigo logo" />
+                            <img src={logo} alt="petamigologo" />
                         </span>
                         <h3 className="sidebar-text-logo">Pet Amigo</h3>
                     </NavLink>
