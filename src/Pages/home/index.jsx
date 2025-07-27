@@ -1,15 +1,17 @@
-import React, { useRef } from "react";
+import React from "react";
 import "./home.css";
-import NavBar from "../../Components/NavBar/navbar.jsx";
 import Top from "./components/top.jsx";
+import Carousel from "./components/carousel.jsx";
+import Catalog from "./components/catalog.jsx";
+import Categories from "./components/categories.jsx";
 
 function Home() {
   return (
     <div className="home-page">
-      <NavBar />
-      <section className="home-content">
         <Top />
-      </section>
+        <Carousel />
+        <Categories />
+        <Catalog/>
     </div>
   );
 }

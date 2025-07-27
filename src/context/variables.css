@@ -1,10 +1,12 @@
 /* Tipografia personalizada */
 @font-face {
   font-family: 'Coolvetica';
-  src: url('fonts/coolveticarg-regular.ttf') format('truetype');
+  src: url('/fonts/coolveticarg-regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap; 
 }
+
 
 /* Variáveis globais */
 :root {
@@ -14,6 +16,7 @@
   --lightgray-background: #dddddd;    /* Usado para fundo da sidebar no tema claro */
   --darkgray-background: #8d8d8d;     /* Usado para ícones/texto */
   --black-text-details: #000000;      /* Usado para texto principal no tema claro */
+  --skeleton-loading-color: #e0e0e0;  /* Cor para esqueleto de carregamento */
 
   /* RGB primário */
   --rgb-green-primary-values: 38, 204, 107;
@@ -35,6 +38,7 @@ html[data-theme="dark"] {
   --lightgray-background: #242526;   /* Fundo da sidebar (UM POUCO MAIS CLARO QUE O PRINCIPAL) */
   --darkgray-background: #b0b3b8;       /* Ícones/texto no tema escuro */
   --black-text-details: #e4e6eb;        /* Texto principal no tema escuro */
+  --skeleton-loading-color: #333333;
 
   /* Cores de interação - Tema Escuro */
   --sidebar-active-item-bg: rgba(var(--rgb-green-primary-values), 0.2);
@@ -49,4 +53,17 @@ html[data-theme="dark"] {
   box-sizing: border-box;
   font-family: var(--font-regular);
   /* max-height: 100%; /* CUIDADO: Esta regra global pode causar problemas. Remova se não for essencial. */
+}
+
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
