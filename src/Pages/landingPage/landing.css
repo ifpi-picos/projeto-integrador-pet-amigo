@@ -104,7 +104,7 @@ body {
 /* Footer estilizado */
 
 .landing-footer {
-  background-color: #333;
+  background-color: #26CC6B;
   color: white;
   text-align: center;
   padding: 30px;
@@ -156,11 +156,11 @@ body {
 
 .primary-btn {
   background-color: #26CC6B;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .primary-btn:hover {
-  background-color: #1b8e4b;
+  background-color: #ffffff;
 }
 
 .secondary-btn {
@@ -170,7 +170,7 @@ body {
 }
 
 .secondary-btn:hover {
-  background-color: #e7fbee;
+  background-color: #17b74f;
 }
 
 /* Responsividade extra */
@@ -186,7 +186,7 @@ body {
 }
 
 .landing-footer {
-  background-color: #000000;
+  background-color: #26CC6B;
   color: white;
   padding: 60px 40px 20px;
   margin-top: 100px;
@@ -261,7 +261,7 @@ body {
 }
 
 .footer-form button {
-  background-color: #26CC6B;
+  background-color: #cdcdcd;
   color: black;
   border: none;
   padding: 10px 20px;
@@ -501,7 +501,7 @@ body {
   background: white;
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(237, 9, 9, 0.1);
 }
 
 /* ALTERNÂNCIA ENTRE ESQUERDA E DIREITA */

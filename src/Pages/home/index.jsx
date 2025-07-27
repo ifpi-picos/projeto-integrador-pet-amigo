@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import "./home.css";
 import NavBar from "../../Components/NavBar/navbar.jsx";
 import { FaRegUserCircle, FaChevronLeft, FaChevronRight } from "react-icons/fa";
