@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png'; 
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
   return (
     <header className="landing-header">
       <div className="header-left">
@@ -18,7 +25,7 @@ const Header = () => {
       </nav>
 
       <div className="header-right">
-        <button className="login-button">Login</button>
+        <button className="login-button" onClick={handleLoginClick}>Login</button>
       </div>
     </header>
   );
