@@ -63,22 +63,29 @@
 
 .sidebar-item:last-child {
     margin-bottom: 10px;
+    background-color: transparent;
+    border: none;
 }
 
-.sidebar-item a:hover {
+.sidebar-item a:hover,
+.logout-button:hover {
     background: var(--sidebar-active-item-bg);
 }
 
-html[data-theme="dark"] .sidebar-item a:hover {
+html[data-theme="dark"] .sidebar-item a:hover,
+html[data-theme="dark"] .logout-button:hover {
     background-color: rgba(var(--rgb-green-primary-values), 0.1);
 }
 
 .sidebar-item a:hover .sidebar-text,
-.sidebar-item a:hover .sidebar-icon {
+.sidebar-item a:hover .sidebar-icon,
+.logout-button:hover .sidebar-text,
+.logout-button:hover .sidebar-icon {
     color: var(--green-primary);
 }
 
-.sidebar ul li a {
+.sidebar ul li a,
+.sidebar .logout-button {
     display: flex;
     align-items: center;
     white-space: nowrap;
@@ -88,6 +95,15 @@ html[data-theme="dark"] .sidebar-item a:hover {
     padding: 0;
     height: 100%;
     border-radius: 30px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit; /* Herda a fonte do resto da página */
+    text-align: left;
 }
 
 .sidebar ul li .sidebar-logo {

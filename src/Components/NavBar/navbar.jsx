@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./navbar.css";
-import { NavLink } from "react-router-dom"; 
+import { NavLink, useNavigate } from "react-router-dom"; 
+import { supabase } from "../../supabaseClient";
 import { TbSettingsFilled, TbMoonFilled, TbSunFilled } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
 import { IoChatbubbleEllipses } from "react-icons/io5";
@@ -9,6 +10,7 @@ import { GoHomeFill } from "react-icons/go";
 import { LuLogOut } from "react-icons/lu";
 import logo from "../../assets/logo.jpg";
 
+// A lógica getInitialTheme e useEffect para o tema permanecem as mesmas
 const getInitialTheme = () => {
     if (typeof window !== 'undefined' && window.localStorage) {
         const storedPrefs = window.localStorage.getItem('theme');
@@ -25,6 +27,7 @@ const getInitialTheme = () => {
 
 function Navbar() {
     const [isNightMode, setIsNightMode] = useState(getInitialTheme);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (isNightMode) {
@@ -40,6 +43,15 @@ function Navbar() {
         setIsNightMode(prevMode => !prevMode);
     };
 
+    const handleSignOut = async () => {
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            console.error('Erro ao fazer logout:', error);
+        } else {
+            navigate('/'); 
+        }
+    };
+
     return (
         <nav className="sidebar">
             <ul>
@@ -51,69 +63,56 @@ function Navbar() {
                         <h3 className="sidebar-text-logo">Pet Amigo</h3>
                     </NavLink>
                 </li>
+                
                 <li className="sidebar-item">
                     <NavLink to="/home" end>
-                        <span className="sidebar-icon">
-                            <GoHomeFill />
-                        </span>
+                        <span className="sidebar-icon"><GoHomeFill /></span>
                         <span className="sidebar-text">Início</span>
                     </NavLink>
                 </li>
                 <li className="sidebar-item">
                     <NavLink to="/feed">
-                        <span className="sidebar-icon">
-                            <HiVideoCamera />
-                        </span>
+                        <span className="sidebar-icon"><HiVideoCamera /></span>
                         <span className="sidebar-text">Feed</span>
                     </NavLink>
                 </li>
                 <li className="sidebar-item">
                     <NavLink to="/chat">
-                        <span className="sidebar-icon">
-                            <IoChatbubbleEllipses />
-                        </span>
+                        <span className="sidebar-icon"><IoChatbubbleEllipses /></span>
                         <span className="sidebar-text">Comunidade</span>
                     </NavLink>
                 </li>
                 <li className="sidebar-item">
                     <NavLink to="/profile">
-                        <span className="sidebar-icon">
-                            <FaUser />
-                        </span>
+                        <span className="sidebar-icon"><FaUser /></span>
                         <span className="sidebar-text">Perfil</span>
                     </NavLink>
                 </li>
+
                 <li className="sidebar-item sidebar-item-push-to-bottom">
                     <NavLink to="/settings">
-                        <span className="sidebar-icon">
-                            <TbSettingsFilled />
-                        </span>
+                        <span className="sidebar-icon"><TbSettingsFilled /></span>
                         <span className="sidebar-text">Settings</span>
                     </NavLink>
                 </li>
+                
                 <li className="sidebar-item night-mode-item" onClick={toggleNightMode}>
-                    <span className="sidebar-icon">
-                        {isNightMode ? <TbSunFilled /> : <TbMoonFilled />}
-                    </span>
+                    <span className="sidebar-icon">{isNightMode ? <TbSunFilled /> : <TbMoonFilled />}</span>
                     <span className="sidebar-text">Modo Noturno</span>
                     <label className="switch" onClick={e => e.stopPropagation()}>
-                        <input
-                            id="night-mode-toggle"  
-                            name="nightMode"         
-                            type="checkbox"
-                            checked={isNightMode}
-                            onChange={toggleNightMode}
-                        />
+                        <input type="checkbox" checked={isNightMode} onChange={toggleNightMode} id="night-mode-toggle" name="nightMode" />
                         <span className="slider"></span>
                     </label>
                 </li>
+                
+                {/* CORREÇÃO: Adicionada a classe .sidebar-item ao <li> pai do botão */}
                 <li className="sidebar-item">
-                    <NavLink to="/login">
+                    <button onClick={handleSignOut} className="logout-button">
                         <span className="sidebar-icon">
                             <LuLogOut />
                         </span>
                         <span className="sidebar-text">Logout</span>
-                    </NavLink>
+                    </button>
                 </li>
             </ul>
         </nav>

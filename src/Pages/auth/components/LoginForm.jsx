@@ -13,11 +13,11 @@ function LoginForm({ onSwitchToRegister }) {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const navigate = useNavigate(); // Hook para navegação
+    const navigate = useNavigate();
 
-    // 3. Função para lidar com o login com email e senha
+    // 3. função para lidar com o coisa do login com email e senha
     const handleLogin = async (e) => {
-        e.preventDefault(); // Impede que a página recarregue ao enviar o formulário
+        e.preventDefault(); //Impede que a página recarregue ao enviar o formulário
         setLoading(true);
         setError('');
 
@@ -27,17 +27,15 @@ function LoginForm({ onSwitchToRegister }) {
         });
 
         if (error) {
-            setError(error.message); // Define a mensagem de erro se o login falhar
+            setError(error.message); // eefine a mensagem de erro se o login falhar
         } else {
-            // Se o login for bem-sucedido, o onAuthStateChange (do seu AuthContext)
-            // irá detectar a nova sessão, e nós navegamos para a home.
             navigate('/home');
         }
 
         setLoading(false);
     };
 
-    // 4. Função para lidar com o login social (Google)
+    // 4. função para lidar com o login do google
     const handleGoogleLogin = async () => {
         setError('');
         const { error } = await supabase.auth.signInWithOAuth({

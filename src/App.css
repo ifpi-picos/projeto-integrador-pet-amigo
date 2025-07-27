@@ -2,7 +2,7 @@
 
 .app-container {
   display: flex;
-  background-color: var(--lightgray-background);
+  background-color: var(--white-background);
   transition: background-color 0.3s ease;
   padding: 4vh 2rem;
   min-height: 100vh;

@@ -1,0 +1,261 @@
+@import '../../context/variables.css';
+
+/* --- Estrutura Principal do Perfil --- */
+.profile-data-container {
+    width: 100%;
+    background-color: var(--white-background);
+    border-radius: 24px;
+
+    overflow: hidden; /* Importante para o arredondamento funcionar */
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Banner (Foto de Capa) --- */
+.profile-banner {
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--lightgray-background); /* Cor de fallback */
+}
+
+/* --- Conteúdo Abaixo do Banner --- */
+.profile-content {
+    padding: 1.5rem 2.5rem;
+}
+
+/* --- Cabeçalho (Foto, Nome, Stats, Botão) --- */
+.profile-header {
+    display: flex;
+    align-items: flex-end; /* Alinha os itens na base */
+    gap: 1.5rem;
+    margin-top: -75px; /* Puxa o conteúdo para cima, sobrepondo o banner */
+    position: relative; /* Garante que fique acima do banner */
+}
+
+.profilepage-picture {
+    width: 225px;
+    height: 225px;
+    border-radius: 45px;
+    object-fit: cover;
+    border: 5px solid transparent;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    max-width: 40%;
+    flex-grow: 1;
+    margin-bottom: 10px; /* Alinha com a base do botão de seguir */
+}
+
+.profile-name-badge {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+}
+
+.profile-name {
+    font-family: var(--font-main);
+    font-size: 2rem;
+    color: var(--black-text-details);
+}
+
+.profile-name-complete {
+    color: var(--darkgray-background);
+}
+
+/* --- Badges de Usuário (ONG / Pessoa) --- */
+.user-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.ong-badge {
+    background-color: rgba(var(--rgb-green-primary-values), 0.1);
+    color: var(--green-primary);
+}
+.person-badge {
+    background-color: var(--lightgray-background);
+    color: var(--black-text-details);
+}
+
+/* --- Estatísticas (Seguidores, etc.) --- */
+.profile-stats {
+    display: flex;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    gap: 2rem;
+    list-style: none;
+    font-size: 0.75rem;
+    color: var(--darkgray-background);
+}
+
+.profile-stats li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.profile-stats span {   
+    font-weight: 700;
+    font-size: 1.75rem;
+    color: var(--black-text-details);
+    margin-right: 4px;
+}
+
+/* --- Botão de Seguir --- */
+.follow-button,
+.message-button {
+  background: var(--green-primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.follow-button:hover,
+.message-button:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.message-button {
+    background: transparent;
+    border: 2px solid var(--green-primary);
+    color: var(--green-primary);
+  }
+
+.profile-bio-section h2 {
+    font-family: var(--font-main);
+    font-size: 1.25rem;
+    color: var(--black-text-details);
+    margin-bottom: 0.5rem;
+}
+
+.profile-bio {
+    font-size: 1rem;
+    color: var(--darkgray-background);
+    line-height: 1.6;
+    margin: 0;
+    margin: 0.5rem 0 ;
+}
+
+.profile-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    .profile-content {
+        padding: 1rem 1.5rem;
+    }
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        margin-top: -75px;
+        text-align: center;
+    }
+    .profile-details {
+        margin-bottom: 0;
+        align-items: center;
+        max-width: none;
+    }
+    .profile-name-badge {
+        gap: 0.5rem;
+    }
+    .profilepage-picture {
+        width: 150px;
+        height: 150px;
+    }
+    .follow-button {
+        width: 100%;
+    }
+    .profile-stats {
+        justify-content: center;
+        margin: 0;
+    }
+    .profile-bio-section {
+        text-align: center;
+    }
+}
+
+/* Adicione estas regras ao seu arquivo profile.css */
+
+/* --- Seção de Conteúdo do Perfil (Navegação e Grid) --- */
+.profile-section {
+    margin-top: 2rem;
+    border-radius: 24px;
+}
+
+.profile-nav {
+    border-bottom: 1px solid var(--lightgray-background);
+}
+
+.profile-nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0 2.5rem; /* Alinha com o padding do conteúdo do perfil */
+    margin: 0;
+    gap: 1.5rem;
+}
+
+.profile-nav li {
+    padding: 1.25rem 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--darkgray-background);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease-in-out;
+}
+
+.profile-nav li:hover {
+    color: var(--black-text-details);
+}
+
+/* Estilo para a aba ATIVA */
+.profile-nav li.active {
+    color: var(--green-primary);
+}
+
+/* Linha indicadora da aba ativa */
+.profile-nav li.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; /* Posiciona sobre a borda do .profile-nav */
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--green-primary);
+    border-radius: 3px 3px 0 0;
+}
+
+/* --- Grid de Conteúdo --- */
+.profile-grid {
+    padding: 2.5rem;
+    min-height: 300px; /* Altura mínima para o conteúdo */
+}
+
+.profile-grid-content {
+    font-size: 1.2rem;
+    color: var(--darkgray-background);
+}

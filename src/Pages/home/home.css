@@ -87,7 +87,7 @@
 } 
 
 .top-actions button {
-  background-color: var(--white-background);
+  background-color: var(--lightgray-background);
   color: var(--black-text-details);
   border: none;
   padding: 0 30px;
@@ -109,44 +109,44 @@ html[data-theme="dark"] .top-actions button:hover {
   background-color: #00000090;
 }
 
-.profile-container {
+.profile-box {
   height: 100%;
   padding: 0 15px;
   border-radius: 20px;
   display: flex;
   align-items: center;
   gap: 12px;
-  background-color: var(--white-background);
-  text-decoration: none; 
+  background-color: var(--lightgray-background);
+  text-decoration: none;
   transition: background-color 0.2s ease;
 }
 
-.profile-container:hover {
+.profile-box:hover {
   background-color: #00000020;
 }
 
-html[data-theme="dark"] .profile-container:hover {
+html[data-theme="dark"] .profile-box:hover {
   background-color: #00000090;
 }
 
-.profile-container div {
+.profile-box div {
   display: flex;
   flex-direction: column;
 }
 
-.profile-container div h3 {
+.profile-box div h3 {
   font-size: 16px;
   font-weight: 600;
   color: var(--green-primary);
   line-height: 1.2;
 }
 
-.profile-container div span {
+.profile-box div span {
   font-size: 13px;
   color: var(--darkgray-background);
 }
 
-.profile-container img {
+.profile-box img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
