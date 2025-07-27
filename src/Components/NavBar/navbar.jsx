@@ -8,7 +8,7 @@ import { IoChatbubbleEllipses } from "react-icons/io5";
 import { HiVideoCamera } from "react-icons/hi";
 import { GoHomeFill } from "react-icons/go";
 import { LuLogOut } from "react-icons/lu";
-import logo from "../../assets/logo.jpg";
+import logo from "@/assets/logo.png";
 
 // A lógica getInitialTheme e useEffect para o tema permanecem as mesmas
 const getInitialTheme = () => {

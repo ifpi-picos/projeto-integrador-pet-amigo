@@ -8,7 +8,7 @@ import OngForm from "./components/OngForm.jsx";
 import AddressForm from "./components/AddressForm.jsx";
 import SuccessMessage from "./components/SuccessMessage.jsx";
 import LoginDog from "../../assets/login-dog.png";
-import Logo from "../../assets/logo.jpg";
+import Logo from "@/assets/logo.png";
 
 function Auth() {
     const [view, setView] = useState('login');

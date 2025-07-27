@@ -4,7 +4,7 @@ import { FaFilter } from "react-icons/fa6";
 import { RiHeart3Fill } from "react-icons/ri";
 import { IoNotifications } from "react-icons/io5";
 import { Link } from "react-router-dom"; 
-import logo from "@/assets/logo.jpg";
+import logo from "@/assets/logo.png";
 import { useAuth } from "@/context/AuthContext.jsx";
 
 function Top() {
