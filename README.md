@@ -6,12 +6,6 @@ Uma plataforma social para conectar amantes de animais de estimação, construí
 
 -----
 
-### демонстрация
-
-*[Insira um GIF ou screenshot da aplicação aqui. Ferramentas como ScreenToGif (Windows) ou Kap (Mac) são ótimas para criar GIFs da sua aplicação em funcionamento.]*
-
------
-
 ## ✨ Funcionalidades
 
   - **Interface Responsiva:** Layout adaptável que funciona bem em desktops e se transforma em uma barra de navegação inferior em dispositivos móveis.
