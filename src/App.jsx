@@ -13,8 +13,8 @@ function App() {
   return (
     <Routes>
       {/* Grupo de Rotas 1: Páginas SEM a Navbar */}
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/auth" element={<Auth />} />
+      <Route path="/" element={<Auth />} />
+      <Route path="/landingpage" element={<LandingPage />} />
       <Route path="*" element={<BadRequest />} />
 
       {/* Grupo de Rotas 2: Páginas COM a Navbar */}  
