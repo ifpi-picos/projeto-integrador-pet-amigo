@@ -1,6 +1,6 @@
-// home/components/catalog.jsx
-import React from 'react'; // Não precisamos mais de useState e useEffect aqui
+import React, { useState, useEffect } from 'react';
 import AnimalCard from './animalcard.jsx';
+import { supabase } from '../../../supabaseClient.js';
 import { FaArrowRight } from "react-icons/fa";
 
 const SkeletonCard = () => (
