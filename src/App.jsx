@@ -8,6 +8,7 @@ import Auth from './Pages/auth/auth.jsx';
 import Home from './Pages/home/index.jsx';
 import Profile from './Pages/profile/profile.jsx';
 import BadRequest from './Pages/badRequest/error.jsx';
+import PetPage from './Pages/pet-page/PetPage.jsx'; 
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       {/* Grupo de Rotas 2: Páginas COM a Navbar */}  
       <Route element={<LayoutNav />}>
         <Route path="/home" element={<Home />} />
+        <Route path="/pet/:petId" element={<PetPage />} />
         <Route path="/profile" element={<Profile />} />
 
         <Route path="/profile/:userId" element={<Profile />} />
