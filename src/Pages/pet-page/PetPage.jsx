@@ -42,6 +42,8 @@ function PetPage() {
         return <div className="pet-page-loading">Carregando informações do pet...</div>;
     }
 
+    
+
     if (!pet) {
         return <div className="pet-page-error">Pet não encontrado.</div>;
     }
