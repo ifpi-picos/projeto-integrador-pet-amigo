@@ -259,3 +259,87 @@
     font-size: 1.2rem;
     color: var(--darkgray-background);
 }
+
+
+
+/* --- Floating Action Button (FAB) --- */
+
+.fab-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1000;
+}
+
+.fab-wrapper {
+    position: relative;
+    width: 56px;
+    height: 56px;
+}
+
+.fab-main, .fab-action-btn {
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.fab-main {
+    width: 5rem;
+    height: 5rem;
+    background-color: var(--green-primary);
+    color: white;
+    z-index: 10;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fab-main.open {
+    transform: rotate(45deg);
+}
+
+.fab-action-btn {
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: var(--white-background);
+    color: var(--green-primary);
+    z-index: 9;
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+}
+
+.fab-actions.open .fab-action-btn {
+    opacity: 1;
+}
+
+.fab-action-btn:hover {
+    transform: scale(1.1);
+}
+
+.fab-actions.open .fab-action-btn:nth-child(1) {
+    transform: translate(8px, -130px);
+}
+.fab-actions.open .fab-action-btn:nth-child(1):hover {
+    transform: translate(8px, -130px) scale(1.1);
+}
+
+.fab-actions.open .fab-action-btn:nth-child(2) {
+    transform: translate(-90px, -90px);
+}
+.fab-actions.open .fab-action-btn:nth-child(2):hover {
+    transform: translate(-90px, -90px) scale(1.1);
+}
+
+.fab-actions.open .fab-action-btn:nth-child(3) {
+    transform: translate(-130px, 8px);
+}
+.fab-actions.open .fab-action-btn:nth-child(3):hover {
+    transform: translate(-130px, 8px) scale(1.1);
+}
