@@ -10,6 +10,7 @@ import Gallery from "./components/gallery.jsx";
 import Pets from "./components/pets.jsx";
 import Adoptions from "./components/adoptions.jsx";
 import Likes from "./components/likes.jsx";
+import FloatingActionButton from "./components/FloatingActionButton.jsx"; // Importe o botão flutuante
 
 function Profile() {
     const [activeTab, setActiveTab] = useState('galeria');
@@ -69,6 +70,8 @@ function Profile() {
         return <div className="profile-error">Este perfil não foi encontrado.</div>;
     }
 
+    const isOwnProfile = currentUser && currentUser.id === viewedProfile.id;
+
     return (
         <div className="profile-container">
             {/* 4. Passa o perfil encontrado como prop para o ProfileData */}
@@ -87,6 +90,7 @@ function Profile() {
                     {renderActiveComponent()}
                 </div>
             </section>
+            <FloatingActionButton isOwnProfile={isOwnProfile} />
         </div>
     );
 }
