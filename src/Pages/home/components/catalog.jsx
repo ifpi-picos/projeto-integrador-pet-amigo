@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+// home/components/catalog.jsx
+import React from 'react';
 import AnimalCard from './animalcard.jsx';
-import { supabase } from '../../../supabaseClient.js';
 import { FaArrowRight } from "react-icons/fa";
 
 const SkeletonCard = () => (
@@ -13,39 +13,25 @@ const SkeletonCard = () => (
     </div>
 );
 
-function Catalog() {
-    const [animais, setAnimais] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchAnimais = async () => {
-            setLoading(true);
-
-            // CORREÇÃO: A consulta agora busca todos os dados do animal (*) e
-            // todas as fotos relacionadas da tabela 'pet_photos'.
-            const { data, error } = await supabase
-                .from('Animais')
-                .select(`
-                    *, 
-                    pet_photos (*)
-                `)
-                .limit(15);
-
-            if (error) {
-                console.error('Erro ao buscar animais:', error);
-            } else {
-                setAnimais(data);
-            }
-            setLoading(false);
-        };
-
-        fetchAnimais();
-    }, []);
-
-    // ... (o resto do seu componente, incluindo o return, permanece igual)
+// O componente agora recebe 'animais' e 'loading' como props
+function Catalog({ animais, loading }) { 
+    // Renderização condicional para os estados
     if (loading) {
-        // ...
+        return (
+            <section className="catalog-container">
+                <header className="catalog-header"> 
+                    <h1>Encontre seu novo amigo:</h1>
+                    <a href="/feed" className="see-all-link"><span>Ver todos</span><FaArrowRight /></a>
+                </header>
+                <div className="catalog-grid">
+                    {/* Renderiza 3 esqueletos enquanto carrega */}
+                    {[...Array(3)].map((_, index) => <SkeletonCard key={index} />)}
+                </div>
+            </section>
+        );
     }
+    
+    // Renderiza a lista de animais ou uma mensagem se estiver vazia
     return (
         <section className="catalog-container">
             <header className="catalog-header"> 
@@ -53,13 +39,19 @@ function Catalog() {
                 <a href="/feed" className="see-all-link"><span>Ver todos</span><FaArrowRight /></a>
             </header>
             <div className="catalog-grid">
-                {animais.map(animal => (
-                    <AnimalCard key={animal.id} animal={animal} />
-                ))}
+                {animais.length > 0 ? (
+                    animais.map(animal => (
+                        <AnimalCard key={animal.id} animal={animal} />
+                    ))
+                ) : (
+                    <p className="no-animals-message">Nenhum animal para adoção encontrado. Seja o primeiro a cadastrar um!</p>
+                )}
             </div>
-            <div className='see-all-link-mobile'>
-                <a href="/feed" className="see-all-link"><span>Ver todos</span><FaArrowRight /></a>
-            </div>
+            {animais.length > 0 && (
+                <div className='see-all-link-mobile'>
+                    <a href="/feed" className="see-all-link"><span>Ver todos</span><FaArrowRight /></a>
+                </div>
+            )}
         </section>
     );
 }
