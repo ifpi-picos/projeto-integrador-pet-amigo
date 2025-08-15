@@ -21,10 +21,9 @@ function Catalog() {
         const fetchAnimais = async () => {
             setLoading(true);
 
-            // CORREÇÃO: A consulta agora busca todos os dados do animal (*) e
-            // todas as fotos relacionadas da tabela 'pet_photos'.
+            // CORREÇÃO: Usando o nome correto da tabela 'animals' (minúsculo)
             const { data, error } = await supabase
-                .from('Animais')
+                .from('animals') 
                 .select(`
                     *, 
                     pet_photos (*)
@@ -37,16 +36,34 @@ function Catalog() {
                 setAnimais(data);
             }
             setLoading(false);
+
+            if (error) {
+                console.error('Erro ao buscar animais:', error);
+            } else {
+                // ADICIONE ESTE CONSOLE.LOG
+                console.log("Dados retornados pelo Supabase:", data); 
+                setAnimais(data);
+            }
         };
 
         fetchAnimais();
     }, []);
 
-    // ... (o resto do seu componente, incluindo o return, permanece igual)
     if (loading) {
-        // ...
+        return (
+            <section className="catalog-container">
+                <header className="catalog-header">
+                    <h1>Encontre seu novo amigo:</h1>
+                    <a href="/feed" className="see-all-link"><span>Ver todos</span><FaArrowRight /></a>
+                </header>
+                <div className="catalog-grid">
+                    {Array.from({ length: 8 }).map((_, index) => <SkeletonCard key={index} />)}
+                </div>
+            </section>
+        );
     }
-    return (
+
+    return (    
         <section className="catalog-container">
             <header className="catalog-header"> 
                 <h1>Encontre seu novo amigo:</h1>

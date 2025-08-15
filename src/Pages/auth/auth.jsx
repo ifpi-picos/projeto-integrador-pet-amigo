@@ -13,57 +13,67 @@ import Logo from "@/assets/logo.png";
 function Auth() {
     const [view, setView] = useState('login');
     const [registerStep, setRegisterStep] = useState(1);
+    
+    // CORRIGIDO: Nomes do estado padronizados para o inglês
     const [formData, setFormData] = useState({
-        user_type: '', 
-        email: '',  
-        password: '', 
-        nome_completo: '', 
-        nome_exibicao: '',
-        cpf: '', 
-        data_nascimento: '', 
-        nome_ong: '', 
-        cnpj: '', 
-        nome_responsavel: '', 
-        telefone: '', 
-        cep: '', 
-        endereco: '', 
-        cidade: '', 
-        estado: ''
+        user_type: '',
+        email: '',
+        password: '',
+        display_name: '',
+        full_name: '',
+        cpf: '',
+        birth_date: '',
+        ong_name: '',
+        cnpj: '',
+        responsible_name: '',
+        phone: '',
+        cep: '',
+        street: '',
+        city: '',
+        state: ''
     });
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    const updateFormData = (data) => {
-        setFormData(prevData => ({ ...prevData, ...data }));
-    };
-
+    const updateFormData = (data) => setFormData(prevData => ({ ...prevData, ...data }));
     const nextStep = () => setRegisterStep(prevStep => prevStep + 1);
     const prevStep = () => setRegisterStep(prevStep => prevStep - 1);
-    
     const switchToRegister = () => setView('register');
     const switchToLogin = () => {
         setView('login');
         setRegisterStep(1);
         setError('');
     };
-
+    
+    // CORRIGIDO: Lógica de submit para enviar metadados corretos
     const handleFinalSubmit = async (addressData) => {
         setLoading(true);
         setError('');
     
-        // 1. Junta todos os dados do formulário em um objeto final
         const finalData = { ...formData, ...addressData };
-    
-        // 2. Separa a senha (que não vai nos metadados) do resto dos dados
-        const { password, ...optionsData } = finalData;
         
-        // 3. Cadastra o usuário e passa TODOS os outros dados no campo 'options.data'
-        // O trigger no Supabase vai pegar esses dados e fazer o INSERT completo.
+        const metadata = {
+            user_type: finalData.user_type,
+            display_name: finalData.display_name,
+            full_name: finalData.full_name,
+            cpf: finalData.cpf,
+            birth_date: finalData.birth_date,
+            ong_name: finalData.ong_name,
+            cnpj: finalData.cnpj,
+            responsible_name: finalData.responsible_name,
+            phone: finalData.phone,
+            cep: finalData.cep,
+            street: finalData.street,
+            city: finalData.city,
+            state: finalData.state
+        };
+        
         const { data, error } = await supabase.auth.signUp({
             email: finalData.email.trim(),
-            password: password,
+            password: finalData.password,
             options: {
-                data: optionsData 
+                data: metadata
             }
         });
     
@@ -72,27 +82,21 @@ function Auth() {
         if (error) {
             setError(error.message);
         } else if (data.user) {
-            // Se o signUp deu certo, o trigger já fez todo o trabalho.
-            // A chamada .update() foi removida. Apenas avançamos para a tela de sucesso!
-            nextStep(); 
+            nextStep();
         } else {
-             setError("Ocorreu um erro desconhecido durante o cadastro.");
+            setError("Ocorreu um erro desconhecido durante o cadastro.");
         }
     };
 
-    // Função que renderiza o componente da etapa de cadastro correta
     const renderRegisterStep = () => {
-        const props = { nextStep, prevStep, updateFormData, error, loading };
+        const props = { nextStep, prevStep, updateFormData, formData, error, loading };
 
         switch (registerStep) {
             case 1:
                 return <SelectUserType {...props} onSwitchToLogin={switchToLogin} />;
             case 2:
-                if (formData.user_type === 'PESSOA') {
-                    return <PersonForm {...props} />;
-                } else if (formData.user_type === 'ONG') {
-                    return <OngForm {...props} />;
-                }
+                if (formData.user_type === 'PESSOA') return <PersonForm {...props} />;
+                if (formData.user_type === 'ONG') return <OngForm {...props} />;
                 return null;
             case 3:
                 return <AddressForm {...props} onSubmit={handleFinalSubmit} />;
@@ -118,11 +122,7 @@ function Auth() {
                     )}
                 </div>
             </section>
-            <img 
-                src={LoginDog} 
-                className="auth-image" 
-                alt="Cachorro ilustrativo"
-            />
+            <img src={LoginDog} className="auth-image" alt="Cachorro ilustrativo" />
         </div>
     );
 }

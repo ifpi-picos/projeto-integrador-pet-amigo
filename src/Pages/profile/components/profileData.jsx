@@ -3,18 +3,19 @@ import { FaShieldDog } from "react-icons/fa6";
 import { FaUserAlt } from "react-icons/fa";
 import { useAuth } from "@/context/AuthContext.jsx";
 
-// O componente recebe o 'profile' a ser exibido como uma prop
 function ProfileData({ profile }) {
-    // Usamos o useAuth apenas para saber quem é o usuário logado
     const { user: currentUser } = useAuth();
-
-    // Verificamos se o perfil visualizado é o do próprio usuário logado
     const isOwnProfile = currentUser && currentUser.id === profile.id;
 
-    // As variáveis agora usam o 'profile' recebido via props
-    const displayName = profile.user_type === 'ONG' ? profile.nome_ong : profile.nome_exibicao;
-    const fullName = profile.user_type === 'PESSOA' ? profile.nome_completo : profile.nome_responsavel;
-    const avatarUrl = profile.avatar_url;
+    // --- CORREÇÃO: Usando os nomes de colunas em inglês do banco de dados ---
+    const displayName = profile.user_type === 'ONG' 
+        ? profile.ong_name 
+        : profile.display_name;
+    
+    const fullName = profile.user_type === 'PESSOA' 
+        ? profile.full_name 
+        : profile.responsible_name;
+
     const coverUrl = "https://api.duniagames.co.id/api/content/upload/file/11105134861635414697.jpg";
 
     return (
@@ -22,7 +23,7 @@ function ProfileData({ profile }) {
             <div className="profile-banner" style={{ backgroundImage: `url(${coverUrl})` }}></div>
             <div className="profile-content">
                 <div className="profile-header">
-                    <img className="profilepage-picture" src={avatarUrl} alt={`Foto de perfil de ${displayName}`} />
+                    <img className="profilepage-picture" src={profile.avatar_url} alt={`Foto de perfil de ${displayName}`} />
                     
                     <div className="profile-details">
                         <div className="profile-name-badge">
@@ -40,11 +41,13 @@ function ProfileData({ profile }) {
                             )}
                         </div>
 
-                        {fullName && <h3 className="profile-fullname">{fullName}</h3>}
+                        {/* É semanticamente melhor usar h2 para um subtítulo */}
+                        {fullName && <h2 className="profile-fullname">{fullName}</h2>}
 
                         <div className="profile-bio-section">
                             <p className="profile-bio">
-                                {profile.description}
+                                {/* CORREÇÃO: A coluna da biografia se chama 'bio' */}
+                                {profile.bio}
                             </p>
                         </div>
                         
@@ -60,7 +63,6 @@ function ProfileData({ profile }) {
                         </div>
                     </div>
 
-                    {/* ESTATÍSTICAS ESTÁTICAS RESTAURADAS */}
                     <ul className="profile-stats">
                         <li>Seguidores<span>2,345</span></li>
                         <li>Seguindo<span>1,275</span></li>
