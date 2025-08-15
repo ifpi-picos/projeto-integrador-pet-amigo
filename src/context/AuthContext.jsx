@@ -1,91 +1,85 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { supabase } from '../supabaseClient'; // Garanta que o caminho está correto
+import { supabase } from '../supabaseClient';
 
-// 1. Cria o Contexto (sem alterações)
 const AuthContext = createContext();
 
-// 2. Cria o Provedor do Contexto com a lógica corrigida
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [profile, setProfile] = useState(null);
-    const [loading, setLoading] = useState(true); // Começa carregando, como antes
+    const [loading, setLoading] = useState(true);
+
+    // Função centralizada para buscar o perfil correto
+    const fetchProfile = async (userId) => {
+        if (!userId) return null;
+        
+        const { data: userProfile } = await supabase.from('user_profiles').select('*').eq('id', userId).single();
+        if (userProfile) return { ...userProfile, user_type: 'PESSOA' };
+
+        const { data: ongProfile } = await supabase.from('ong_profiles').select('*').eq('id', userId).single();
+        if (ongProfile) return { ...ongProfile, user_type: 'ONG' };
+        
+        return null;
+    };
 
     useEffect(() => {
-        // --- LÓGICA CORRIGIDA ---
-
-        // 1. PRIMEIRO, VERIFICAMOS A SESSÃO INICIAL EXISTENTE.
-        // Isso roda apenas uma vez para descobrir se o usuário já está logado
-        // ao recarregar a página.
-        const getInitialSession = async () => {
-            try {
-                const { data: { session }, error } = await supabase.auth.getSession();
-
-                if (error) {
-                    throw error;
-                }
-
-                if (session?.user) {
-                    setUser(session.user);
-                    const { data: profileData, error: profileError } = await supabase
-                        .from('profiles')
-                        .select('*')
-                        .eq('id', session.user.id)
-                        .single();
-                    
-                    if (profileError) {
-                        console.error("Erro ao buscar perfil inicial:", profileError);
-                    }
-                    setProfile(profileData ?? null);
-                }
-            } catch (e) {
-                console.error("Erro na verificação da sessão inicial:", e);
-            } finally {
-                // IMPORTANTE: O bloco 'finally' GARANTE que o loading termine,
-                // não importa se houve sucesso ou erro na busca da sessão.
-                setLoading(false);
+        // Esta função agora lida com TUDO: carregamento inicial e mudanças de estado
+        const setupAuthListener = async () => {
+            // 1. Pega a sessão inicial. ESSENCIAL para o refresh da página.
+            const { data: { session } } = await supabase.auth.getSession();
+            const initialUser = session?.user;
+            
+            if (initialUser) {
+                setUser(initialUser);
+                const initialProfile = await fetchProfile(initialUser.id);
+                setProfile(initialProfile);
             }
+            
+            // 2. Só depois de verificar a sessão inicial, finalizamos o loading.
+            setLoading(false);
+
+            // 3. Agora, escutamos por MUDANÇAS (login/logout) que aconteçam DEPOIS.
+            const { data: { subscription } } = supabase.auth.onAuthStateChange(
+                async (_event, session) => {
+                    const currentUser = session?.user;
+                    setUser(currentUser ?? null);
+                    
+                    if (currentUser) {
+                        const profileData = await fetchProfile(currentUser.id);
+                        setProfile(profileData);
+                    } else {
+                        setProfile(null);
+                    }
+                }
+            );
+
+            return () => {
+                subscription?.unsubscribe();
+            };
         };
 
-        getInitialSession();
+        const subscription = setupAuthListener();
 
-        // 2. DEPOIS, OUVIMOS MUDANÇAS FUTURAS (LOGIN E LOGOUT).
-        // Este listener agora só precisa se preocupar com eventos que acontecem
-        // DEPOIS do carregamento inicial.
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            setUser(session?.user ?? null);
-
-            // Quando o usuário faz login/logout, não precisamos mais mexer no 'loading' inicial.
-            // Apenas atualizamos o perfil.
-            if (session?.user) {
-                supabase.from('profiles').select('*').eq('id', session.user.id).single()
-                    .then(({ data }) => setProfile(data ?? null));
-            } else {
-                setProfile(null);
-            }
-        });
-
-        // Limpa a inscrição ao desmontar o componente
         return () => {
-            subscription?.unsubscribe();
+            // Limpa a inscrição quando o componente é desmontado
+            (async () => {
+                (await subscription)?.();
+            })();
         };
     }, []);
 
-    // O valor a ser fornecido para os componentes filhos
     const value = {
         user,
         profile,
         loading,
     };
 
-    // A lógica de renderização condicional permanece
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     );
 }
 
-// Hook customizado (sem alterações)
 export function useAuth() {
     return useContext(AuthContext);
 }

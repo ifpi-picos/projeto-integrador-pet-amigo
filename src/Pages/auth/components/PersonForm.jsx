@@ -3,15 +3,15 @@ import { FaArrowLeft } from "react-icons/fa";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 
 function PersonForm({ nextStep, prevStep, updateFormData }) {
-    // 1. ADICIONADO 'confirm_password' ao estado
+    // CORREÇÃO: Nomes do estado e campos em inglês
     const [personData, setPersonData] = useState({
         email: '',
         password: '',
-        confirm_password: '', // Novo campo para confirmação
-        nome_completo: '',
-        nome_exibicao: '',
+        confirm_password: '',
+        full_name: '',
+        display_name: '',
         cpf: '',
-        data_nascimento: ''
+        birth_date: ''
     });
 
     const [showPassword, setShowPassword] = useState(false);
@@ -23,25 +23,14 @@ function PersonForm({ nextStep, prevStep, updateFormData }) {
 
     const handleNext = (e) => {
         e.preventDefault();
-
-        // 2. ADICIONADA VALIDAÇÃO DE CORRESPONDÊNCIA DE SENHA
         if (personData.password !== personData.confirm_password) {
-            alert("As senhas não coincidem. Por favor, verifique.");
+            alert("As senhas não coincidem.");
             return;
         }
-
-        // Validação de senha mínima (já existente)
         if (personData.password.length < 6) {
             alert("A senha precisa ter no mínimo 6 caracteres.");
             return;
         }
-
-        // Validação de campos vazios (já existente)
-        if (!personData.nome_completo || !personData.nome_exibicao || !personData.cpf || !personData.data_nascimento || !personData.email) {
-            alert("Por favor, preencha todos os campos.");
-            return;
-        }
-        
         updateFormData(personData);
         nextStep();
     };
@@ -49,17 +38,17 @@ function PersonForm({ nextStep, prevStep, updateFormData }) {
     return (
         <div className="auth-form-container">
             <h1>Sobre Você</h1>
-            <p className="form-subtitle">Primeiro, precisamos das suas credenciais e dados pessoais.</p>
+            <p className="form-subtitle">Primeiro, seus dados pessoais e credenciais.</p>
 
             <form onSubmit={handleNext} className="profile-form">
-                <input type="text" name="nome_completo" className="form-input" placeholder="Nome Completo" onChange={handleChange} required />
-                <input type="text" name="nome_exibicao" className="form-input" placeholder="Nome de Exibição (como aparecerá no perfil)" onChange={handleChange} required />
+                {/* CORREÇÃO: 'name' dos inputs em inglês */}
+                <input type="text" name="full_name" className="form-input" placeholder="Nome Completo" onChange={handleChange} required />
+                <input type="text" name="display_name" className="form-input" placeholder="Nome de Exibição (apelido)" onChange={handleChange} required />
                 <input type="email" name="email" className="form-input" placeholder="Seu melhor e-mail" onChange={handleChange} required />
                 
-                {/* Grupo de senha com o ícone clicável */}
                 <div className='input-with-icon-group'>
                     <input 
-                        type={showPassword ? "text" : "password"} // O tipo muda com o estado
+                        type={showPassword ? "text" : "password"}
                         name="password" 
                         className="form-input" 
                         placeholder="Crie uma senha forte" 
@@ -71,28 +60,23 @@ function PersonForm({ nextStep, prevStep, updateFormData }) {
                     </button>
                 </div>
                 
-                {/* 3. CAMPO DE CONFIRMAÇÃO DE SENHA ADICIONADO */}
-                {/* Ele também usa o estado 'showPassword' para uma UX consistente */}
                 <input 
                     type={showPassword ? "text" : "password"}
-                    name="confirm_password" // Nome corrigido para snake_case
+                    name="confirm_password"
                     className="form-input" 
                     placeholder="Confirme sua senha" 
                     onChange={handleChange}     
                     required 
                 />
-
                 <p className="input-hint">A senha deve ter no mínimo 6 caracteres.</p>
                 
                 <div className='form-row-group'>
                     <input type="text" name="cpf" className="form-input" placeholder="CPF" onChange={handleChange} required />
-                    <input type="date" name="data_nascimento" className="form-input" onChange={handleChange} required />   
+                    <input type="date" name="birth_date" className="form-input" onChange={handleChange} required />   
                 </div>
 
                 <div className="form-navigation">
-                    <button type="button" onClick={prevStep} className="prev-button">
-                        <FaArrowLeft />
-                    </button>
+                    <button type="button" onClick={prevStep} className="prev-button"><FaArrowLeft /></button>
                     <button type="submit" className="next-button">Próximo</button> 
                 </div>
             </form>

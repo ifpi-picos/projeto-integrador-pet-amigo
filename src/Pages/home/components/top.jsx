@@ -6,12 +6,13 @@ import { IoNotifications } from "react-icons/io5";
 import { Link } from "react-router-dom"; 
 import logo from "@/assets/logo.png";
 import { useAuth } from "@/context/AuthContext.jsx";
+// Opcional: importe uma imagem de avatar padrão
 
 function Top() {
-    // 3. ACESSE OS DADOS GLOBAIS DO USUÁRIO AQUI
+    // Acessa os dados globais do usuário do AuthContext
     const { user, profile, loading } = useAuth();
 
-    // Enquanto os dados carregam, podemos mostrar um placeholder
+    // Enquanto os dados carregam, mostra um placeholder
     if (loading) {
         return (
             <div className="top-container">
@@ -21,25 +22,33 @@ function Top() {
         );
     }
 
-    // Se não houver perfil (usuário não logado), podemos não mostrar nada ou um botão de login
+    // Se não houver perfil (usuário não logado)
     if (!profile) {
         return (
             <div className="top-container">
-                {/* Você pode adicionar um link de login aqui se quiser */}
+                <Link to="/auth" className="top-logo">
+                    <img src={logo} alt="Pet Amigo Logo" />
+                </Link>
+                <div className="top-actions">
+                    <Link to="/auth" className="login-prompt-button">
+                        Fazer Login
+                    </Link>
+                </div>
             </div>
         );
     }
 
-    // 4. LÓGICA PARA EXIBIR DADOS DINÂMICOS
-    // Define qual nome exibir com base no tipo de usuário
-    const displayName = profile.user_type === 'ONG' ? profile.nome_ong : profile.nome_exibicao || profile.nome_completo;
-    // Usa a foto do perfil ou uma imagem padrão se não houver
-    const avatarUrl = profile.avatar_url || DefaultAvatar;
+    // LÓGICA CORRIGIDA PARA EXIBIR DADOS DINÂMICOS
+    // Usa os nomes de colunas em inglês do novo banco de dados
+    const displayName = profile.user_type === 'ONG' 
+        ? profile.ong_name 
+        : profile.display_name;
+
 
     return (
         <div className="top-container">
-            <Link to="/auth" className="top-logo">
-                <img src={logo} alt="" />
+            <Link to="/home" className="top-logo">
+                <img src={logo} alt="Pet Amigo Logo" />
             </Link>
             <div className="search-bar-container">
                 <CiSearch className="search-icon" />
@@ -62,10 +71,11 @@ function Top() {
                     <IoNotifications />
                 </button>
                 <Link to="/profile" className="profile-box">
-                    <img src={avatarUrl} alt="foto de perfil"/>
+                    <img src={profile.avatar_url} alt="Foto de perfil"/>
                     <div>
                         <h3>{displayName}</h3>
-                        <span>{user.email}</span>
+                        {/* É mais seguro pegar o email do objeto 'user' */}
+                        <span>{user?.email}</span>
                     </div>
                 </Link>
             </div>
