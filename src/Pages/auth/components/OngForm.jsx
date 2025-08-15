@@ -3,7 +3,6 @@ import { FaArrowLeft } from "react-icons/fa";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 
 function OngForm({ nextStep, prevStep, updateFormData }) {
-    // CORREÇÃO: Nomes do estado e campos em inglês
     const [ongData, setOngData] = useState({
         email: '',
         password: '',
@@ -12,7 +11,6 @@ function OngForm({ nextStep, prevStep, updateFormData }) {
         cnpj: '',
         responsible_name: ''
     });
-
     const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
@@ -39,7 +37,6 @@ function OngForm({ nextStep, prevStep, updateFormData }) {
             <h1>Sobre sua ONG</h1>
             <p className="form-subtitle">Crie as credenciais e as informações da sua organização.</p>
             <form onSubmit={handleNext} className="profile-form">
-                {/* CORREÇÃO: 'name' dos inputs em inglês */}
                 <input type="text" name="ong_name" placeholder="Nome da ONG" onChange={handleChange} className="form-input" required />
                 <input type="text" name="responsible_name" placeholder="Nome do Responsável" onChange={handleChange} className="form-input" required />
                 <input type="text" name="cnpj" placeholder="CNPJ" onChange={handleChange} className="form-input" required />

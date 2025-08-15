@@ -3,7 +3,6 @@ import { FaArrowLeft } from "react-icons/fa";
 import { RiEyeFill, RiEyeOffFill } from "react-icons/ri";
 
 function PersonForm({ nextStep, prevStep, updateFormData }) {
-    // CORREÇÃO: Nomes do estado e campos em inglês
     const [personData, setPersonData] = useState({
         email: '',
         password: '',
@@ -13,7 +12,6 @@ function PersonForm({ nextStep, prevStep, updateFormData }) {
         cpf: '',
         birth_date: ''
     });
-
     const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
@@ -39,9 +37,7 @@ function PersonForm({ nextStep, prevStep, updateFormData }) {
         <div className="auth-form-container">
             <h1>Sobre Você</h1>
             <p className="form-subtitle">Primeiro, seus dados pessoais e credenciais.</p>
-
             <form onSubmit={handleNext} className="profile-form">
-                {/* CORREÇÃO: 'name' dos inputs em inglês */}
                 <input type="text" name="full_name" className="form-input" placeholder="Nome Completo" onChange={handleChange} required />
                 <input type="text" name="display_name" className="form-input" placeholder="Nome de Exibição (apelido)" onChange={handleChange} required />
                 <input type="email" name="email" className="form-input" placeholder="Seu melhor e-mail" onChange={handleChange} required />
