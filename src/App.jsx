@@ -8,6 +8,8 @@ import Auth from './Pages/auth/auth.jsx';
 import Home from './Pages/home/index.jsx';
 import Profile from './Pages/profile/profile.jsx';
 import BadRequest from './Pages/badRequest/error.jsx';
+import MissingAnimalPage from './Pages/missinganimal/missinganimal.jsx';
+
 import PetPage from './Pages/pet-page/PetPage.jsx'; 
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
         <Route path="/profile/:userId" element={<Profile />} />
         <Route path="/profile" element={<Profile />} />
 
+        <Route path="/missinganimal" element={<MissingAnimalPage />} />
       </Route>
 
     </Routes>
