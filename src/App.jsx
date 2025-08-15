@@ -28,6 +28,9 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/:userId" element={<Profile />} />
         <Route path="/cadastro-animal" element={<CadastroAnimal />} />
+        <Route path="/profile" element={<Profile />} />
+
+        <Route path="/missinganimal" element={<MissingAnimalPage />} />
       </Route>
     </Routes>
   );
