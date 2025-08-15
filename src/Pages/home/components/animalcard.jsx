@@ -1,3 +1,4 @@
+// home/components/animalcard.jsx
 import React from 'react';
 import { IoLocationSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom';
@@ -21,7 +22,7 @@ function AnimalCard({ animal }) {
                 <p className="animal-breed">{animal.breed} • {animal.species}</p>
                 {animal.location && (
                     <p className="animal-location">
-                        <IoLocationSharp /> 
+                        <IoLocationSharp />
                         {animal.location}
                     </p>
                 )}

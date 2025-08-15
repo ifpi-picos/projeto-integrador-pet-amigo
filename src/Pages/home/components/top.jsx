@@ -1,10 +1,12 @@
+// home/components/top.jsx
 import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaFilter } from "react-icons/fa6";
 import { RiHeart3Fill } from "react-icons/ri";
 import { IoNotifications } from "react-icons/io5";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
+import DefaultAvatar from "@/assets/default-avatar.png";
 import { useAuth } from "@/context/AuthContext.jsx";
 // Opcional: importe uma imagem de avatar padrão
 
@@ -12,7 +14,7 @@ function Top() {
     // Acessa os dados globais do usuário do AuthContext
     const { user, profile, loading } = useAuth();
 
-    // Enquanto os dados carregam, mostra um placeholder
+    // Enquanto os dados carregam, podemos mostrar um placeholder
     if (loading) {
         return (
             <div className="top-container">
@@ -58,8 +60,11 @@ function Top() {
                     className="search-input"
                     type="text"
                     placeholder="Pesquisar animal"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <button className="filter-button">
+                {/* 2. Adicionando o evento onClick para abrir a sidebar */}
+                <button className="filter-button" onClick={onOpenSidebar}>
                     <FaFilter className="filter-icon" />
                 </button>
             </div>

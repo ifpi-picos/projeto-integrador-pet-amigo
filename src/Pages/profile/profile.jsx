@@ -90,6 +90,8 @@ function Profile() {
     if (!viewedProfile) {
         return <div className="profile-error">Este perfil não foi encontrado.</div>;
     }
+
+    const isOwnProfile = currentUser && currentUser.id === viewedProfile.id;
     
     const isOwnProfile = currentUser && currentUser.id === viewedProfile.id;
 

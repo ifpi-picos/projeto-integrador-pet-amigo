@@ -1,14 +1,16 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-import LayoutNav from './Layout/LayoutNav.jsx';
+import LayoutNav from "./Layout/LayoutNav.jsx";
 
-import LandingPage from './Pages/landingPage/landing.jsx';
-import Auth from './Pages/auth/auth.jsx';
-import Home from './Pages/home/index.jsx';
-import Profile from './Pages/profile/profile.jsx';
-import BadRequest from './Pages/badRequest/error.jsx';
-import PetPage from './Pages/pet-page/PetPage.jsx'; 
+import LandingPage from "./Pages/landingPage/landing.jsx";
+import Auth from "./Pages/auth/auth.jsx";
+import Home from "./Pages/home/index.jsx";
+import Profile from "./Pages/profile/profile.jsx";
+
+import BadRequest from "./Pages/badRequest/error.jsx";
+import PetPage from "./Pages/pet-page/PetPage.jsx";
+import CadastroAnimal from "./Pages/CadastroAnimal/CadastroAnimal.jsx";
 
 function App() {
   return (
@@ -18,17 +20,15 @@ function App() {
       <Route path="/landingpage" element={<LandingPage />} />
       <Route path="*" element={<BadRequest />} />
 
-      {/* Grupo de Rotas 2: Páginas COM a Navbar */}  
+      {/* Grupo de Rotas 2: Páginas COM a Navbar */}
+
       <Route element={<LayoutNav />}>
         <Route path="/home" element={<Home />} />
         <Route path="/pet/:petId" element={<PetPage />} />
         <Route path="/profile" element={<Profile />} />
-
         <Route path="/profile/:userId" element={<Profile />} />
-        <Route path="/profile" element={<Profile />} />
-
+        <Route path="/cadastro-animal" element={<CadastroAnimal />} />
       </Route>
-
     </Routes>
   );
 }

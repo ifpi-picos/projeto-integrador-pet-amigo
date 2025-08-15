@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+// home/components/catalog.jsx
+import React from 'react';
 import AnimalCard from './animalcard.jsx';
-import { supabase } from '../../../supabaseClient.js';
 import { FaArrowRight } from "react-icons/fa";
 
 const SkeletonCard = () => (
@@ -70,13 +70,19 @@ function Catalog() {
                 <a href="/feed" className="see-all-link"><span>Ver todos</span><FaArrowRight /></a>
             </header>
             <div className="catalog-grid">
-                {animais.map(animal => (
-                    <AnimalCard key={animal.id} animal={animal} />
-                ))}
+                {animais.length > 0 ? (
+                    animais.map(animal => (
+                        <AnimalCard key={animal.id} animal={animal} />
+                    ))
+                ) : (
+                    <p className="no-animals-message">Nenhum animal para adoção encontrado. Seja o primeiro a cadastrar um!</p>
+                )}
             </div>
-            <div className='see-all-link-mobile'>
-                <a href="/feed" className="see-all-link"><span>Ver todos</span><FaArrowRight /></a>
-            </div>
+            {animais.length > 0 && (
+                <div className='see-all-link-mobile'>
+                    <a href="/feed" className="see-all-link"><span>Ver todos</span><FaArrowRight /></a>
+                </div>
+            )}
         </section>
     );
 }
