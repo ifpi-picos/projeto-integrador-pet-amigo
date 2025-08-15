@@ -92,8 +92,6 @@ function Profile() {
     }
 
     const isOwnProfile = currentUser && currentUser.id === viewedProfile.id;
-    
-    const isOwnProfile = currentUser && currentUser.id === viewedProfile.id;
 
     return (
         <div className="profile-container">
