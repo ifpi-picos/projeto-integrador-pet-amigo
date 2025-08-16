@@ -1,5 +1,5 @@
 // home/components/top.jsx
-import React from "react";
+import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaFilter } from "react-icons/fa6";
 import { RiHeart3Fill } from "react-icons/ri";
@@ -13,6 +13,8 @@ import { useAuth } from "@/context/AuthContext.jsx";
 function Top() {
     // Acessa os dados globais do usuário do AuthContext
     const { user, profile, loading } = useAuth();
+    // Adicionado: Declaração das variáveis de estado search-term
+    const [searchTerm, setSearchTerm] = useState('');
 
     // Enquanto os dados carregam, podemos mostrar um placeholder
     if (loading) {
@@ -63,8 +65,8 @@ function Top() {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                {/* 2. Adicionando o evento onClick para abrir a sidebar */}
-                <button className="filter-button" onClick={onOpenSidebar}>
+                {/* Removido: A chamada a onOpenSidebar, pois a prop não está sendo passada */}
+                <button className="filter-button">
                     <FaFilter className="filter-icon" />
                 </button>
             </div>

@@ -21,28 +21,36 @@ function Profile() {
     const { user: currentUser, loading: authLoading } = useAuth(); // Pega também o loading do Auth
 
     useEffect(() => {
-        // Função interna para buscar o perfil, agora mais limpa
+        // Função interna para buscar o perfil, agora com tratamento de erros
         const fetchProfileData = async (profileId) => {
             // Tenta buscar primeiro em 'user_profiles'
-            let { data: profile, error } = await supabase
+            const { data: userProfile, error: userError } = await supabase
                 .from('user_profiles')
-                .select('*, owners(*), addresses(*)') // Pega dados aninhados
-                .eq('id', profileId) // CORREÇÃO: Usa 'id' que referencia auth.users
+                .select('*, owners(*), addresses(*)')
+                .eq('id', profileId)
                 .single();
+
+            if (userError) {
+                console.error('Erro ao buscar perfil de usuário:', userError);
+            }
             
-            if (profile) {
-                return { ...profile, user_type: 'PESSOA' };
+            if (userProfile) {
+                return { ...userProfile, user_type: 'PESSOA' };
             }
 
-            // Se não encontrou, tenta buscar em 'ong_profiles'
-            ({ data: profile, error } = await supabase
+            // Se não encontrou ou houve erro, tenta buscar em 'ong_profiles'
+            const { data: ongProfile, error: ongError } = await supabase
                 .from('ong_profiles')
-                .select('*, owners(*), addresses(*)') // Pega dados aninhados
-                .eq('id', profileId) // CORREÇÃO: Usa 'id' que referencia auth.users
-                .single());
+                .select('*, owners(*), addresses(*)')
+                .eq('id', profileId)
+                .single();
 
-            if (profile) {
-                return { ...profile, user_type: 'ONG' };
+            if (ongError) {
+                console.error('Erro ao buscar perfil de ONG:', ongError);
+            }
+
+            if (ongProfile) {
+                return { ...ongProfile, user_type: 'ONG' };
             }
 
             return null;

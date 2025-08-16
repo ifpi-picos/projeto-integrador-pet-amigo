@@ -1,7 +1,8 @@
 // home/components/catalog.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import AnimalCard from './animalcard.jsx';
 import { FaArrowRight } from "react-icons/fa";
+import { supabase } from '../../../supabaseClient'; // Adicionado
 
 const SkeletonCard = () => (
     <div className="animal-card skeleton">
@@ -17,37 +18,52 @@ function Catalog() {
     const [animais, setAnimais] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Adicionado: a função searchFn que estava faltando
+    const searchFn = async (query) => {
+        setLoading(true);
+        const { data, error } = await supabase
+            .from('animals')
+            .select(`
+                *,
+                pet_photos (*)
+            `)
+            .ilike('name', `%${query}%`) // Exemplo de busca por nome
+            .limit(15);
+        
+        if (error) {
+            console.error('Erro na busca:', error);
+            setAnimais([]);
+        } else {
+            setAnimais(data || []);
+        }
+        setLoading(false);
+    };
+
     useEffect(() => {
         const fetchAnimais = async () => {
             setLoading(true);
 
-            // CORREÇÃO: Usando o nome correto da tabela 'animals' (minúsculo)
             const { data, error } = await supabase
-                .from('animals') 
+                .from('animals')
                 .select(`
-                    *, 
+                    *,
                     pet_photos (*)
                 `)
                 .limit(15);
 
             if (error) {
                 console.error('Erro ao buscar animais:', error);
+                setAnimais([]); // Define um array vazio em caso de erro
             } else {
-                setAnimais(data);
+                console.log("Dados retornados pelo Supabase:", data);
+                setAnimais(data || []); // Define os dados (ou um array vazio se data for nulo)
             }
+            
             setLoading(false);
-
-            if (error) {
-                console.error('Erro ao buscar animais:', error);
-            } else {
-                // ADICIONE ESTE CONSOLE.LOG
-                console.log("Dados retornados pelo Supabase:", data); 
-                setAnimais(data);
-            }
         };
 
         fetchAnimais();
-    }, []);
+    }, []); // A dependência [] garante que o useEffect rode apenas uma vez
 
     if (loading) {
         return (
@@ -63,7 +79,7 @@ function Catalog() {
         );
     }
 
-    return (    
+    return ( 
         <section className="catalog-container">
             <header className="catalog-header"> 
                 <h1>Encontre seu novo amigo:</h1>

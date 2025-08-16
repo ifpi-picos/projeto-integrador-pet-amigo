@@ -11,6 +11,7 @@ import Profile from "./Pages/profile/profile.jsx";
 import BadRequest from "./Pages/badRequest/error.jsx";
 import PetPage from "./Pages/pet-page/PetPage.jsx";
 import CadastroAnimal from "./Pages/CadastroAnimal/CadastroAnimal.jsx";
+import MissingAnimalPage from './Pages/missinganimal/missinganimal.jsx';
 
 function App() {
   return (

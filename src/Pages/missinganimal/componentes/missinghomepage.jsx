@@ -15,10 +15,8 @@ const MissingHomePage = () => {
   });
   const [showModal, setShowModal] = useState(false);
 
-  // Depuração: mostrar array de animais sempre que renderizar
-  console.log('Animais renderizados:', animais);
-
   useEffect(() => {
+    // Busca a localização do usuário
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
@@ -27,47 +25,65 @@ const MissingHomePage = () => {
             longitude: position.coords.longitude
           });
         },
-        () => console.log('Permissão de localização negada')
+        () => console.log('Permissão de localização negada ou falha na obtenção')
       );
     }
+
     // Busca animais do Supabase
     const fetchAnimais = async () => {
       const { data, error } = await supabase.from('missing_animals').select('*');
-      if (!error) setAnimais(data || []);
+      if (error) {
+        console.error('Erro ao buscar animais:', error);
+      } else {
+        setAnimais(data || []);
+      }
       setLoading(false);
     };
+
     fetchAnimais();
   }, []);
 
-  // Inicializar mapa
+  // Inicializa o mapa após o carregamento dos dados e da localização
   useEffect(() => {
-    if (!loading) {
+    // Só renderiza o mapa se não estiver carregando e se a div 'map-container' existir
+    if (!loading && document.getElementById('map-container')) {
+      // Fix para os ícones do Leaflet
       delete L.Icon.Default.prototype._getIconUrl;
       L.Icon.Default.mergeOptions({
         iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
         iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
       });
+
+      // Cria o mapa
       const map = L.map('map-container').setView([userLocation.latitude, userLocation.longitude], 13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
+
+      // Adiciona marcadores para cada animal com coordenadas válidas
       animais.forEach(animal => {
-        if (animal.latitude && animal.longitude) {
+        // Correção: Adiciona verificação para garantir que latitude e longitude existam
+        if (animal && animal.latitude && animal.longitude) {
           L.marker([animal.latitude, animal.longitude])
             .addTo(map)
             .bindPopup(`
-              <strong>${animal.nome}</strong><br>
-              ${animal.especie}<br>
+              <strong>${animal.nome || 'Nome Indisponível'}</strong><br>
+              ${animal.especie || 'Espécie Indisponível'}<br>
               Desaparecido em: ${new Date(animal.dataDesaparecimento).toLocaleDateString()}
             `);
         }
       });
+      
+      // Limpeza: remove o mapa ao desmontar o componente
       return () => {
         map.remove();
       };
     }
   }, [loading, animais, userLocation]);
+
+  // Depuração: mostrar array de animais sempre que o componente renderizar com novos dados
+  console.log('Animais renderizados:', animais);
 
   if (loading) {
     return (
@@ -76,8 +92,6 @@ const MissingHomePage = () => {
         <p>Carregando animais desaparecidos...</p>
       </div>
     );
-  // Depuração: mostrar array de animais sempre que renderizar
-  console.log('Animais renderizados:', animais);
   }
 
   return (
