@@ -5,6 +5,12 @@ import "./CadastroAnimal.css";
 import { supabase } from "../../supabaseClient";
 import { v4 as uuidv4 } from "uuid";
 
+const speciesMap = {
+  "cachorro": "dog",
+  "gato": "cat",
+  "outro": "other",
+};
+
 const CadastroAnimal = () => {
     const [animal, setAnimal] = useState({
         name: "", description: "", age: "", species: "", race: "", location: "",
@@ -17,13 +23,22 @@ const CadastroAnimal = () => {
     const [userId, setUserId] = useState(null);
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const fetchUserAndCreateProfile = async () => {
             const { data: { user } } = await supabase.auth.getUser();
             if (user) {
                 setUserId(user.id);
+
+                // CORREÇÃO: Usa upsert para garantir que o perfil do dono exista
+                const { error: upsertError } = await supabase
+                    .from('owners')
+                    .upsert([{ user_auth_id: user.id }], { onConflict: 'user_auth_id' });
+                
+                if (upsertError) {
+                    console.error('Erro ao criar/atualizar o perfil do dono:', upsertError.message);
+                }
             }
         };
-        fetchUser();
+        fetchUserAndCreateProfile();
     }, []);
 
     const handleInputChange = (e) => {
@@ -73,15 +88,17 @@ const CadastroAnimal = () => {
                 throw new Error("Erro ao obter a URL da imagem.");
             }
 
+            const speciesValue = speciesMap[animal.species.toLowerCase()] || animal.species.toLowerCase();
+            
             const { data: newAnimal, error: animalError } = await supabase
-                .from("Animais")
+                .from("animals")
                 .insert([
                     {
                         name: animal.name,
                         description: animal.description,
                         age: animal.age,
-                        species: animal.species,
-                        race: animal.race,
+                        species: speciesValue,
+                        breed: animal.race,
                         location: animal.location,
                         owner_id: userId,
                     },
@@ -123,8 +140,8 @@ const CadastroAnimal = () => {
             <div className="cadastro-content">
                 <div className="form-wrapper">
                     <div className="form-header">
-                        <h1 className="form-title">Formulário de Cadastro</h1>
-                        
+                        <h1 className="form-title">🐾 Adote um Amigo</h1>
+                        <p>Preencha os dados abaixo para cadastrar um animal e ajudá-lo a encontrar um novo lar. ✨</p>
                     </div>
                     <form onSubmit={handleSubmit} className="cadastro-form">
                         <div className="form-group full-width">
@@ -160,7 +177,11 @@ const CadastroAnimal = () => {
                             </div>
                         </div>
                         <div className="submit-group full-width">
-                            <button type="submit" disabled={loading} className="submit-button">
+                            <button
+                                type="submit"
+                                disabled={loading || !userId}
+                                className="submit-button"
+                            >
                                 {loading ? "Cadastrando..." : "Cadastrar Animal"}
                             </button>
                             {error && <p className="error-message">{error}</p>}

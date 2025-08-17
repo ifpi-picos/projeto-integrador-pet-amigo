@@ -7,8 +7,6 @@ const Funcionalidades = () => {
   return (
     <section id="funcionalidades" className="funcionalidades-section">
       <h2 className="funcionalidades-title">Funcionalidades do Pet Amigo</h2>
-
-      {/* Agendamento de visita - Ícone à direita, Texto à esquerda */}
       <section className="funcionalidade-item esquerda">
         <div className="texto">
           <h3>Agendamento de Visita</h3>
@@ -18,8 +16,6 @@ const Funcionalidades = () => {
           <MdOutlineEventAvailable size={60} color="#26CC6B" />
         </div>
       </section>
-
-      {/* Doações para ONGs - Ícone à esquerda, Texto à direita */}
       <section className="funcionalidade-item esquerda">
         <div className="icone">
           <FaHandHoldingHeart size={60} color="#26CC6B" />
@@ -29,8 +25,6 @@ const Funcionalidades = () => {
           <p>Apoie a causa animal! Faça doações para ONGs diretamente pelo aplicativo e ajude centenas de pets resgatados a terem uma vida melhor.</p>
         </div>
       </section>
-
-      {/* Cadastro de animais para adoção - Ícone à direita, Texto à esquerda */}
       <section className="funcionalidade-item esquerda">
         <div className="texto">
           <h3>Cadastro de Animais para Adoção</h3>
@@ -40,8 +34,6 @@ const Funcionalidades = () => {
           <MdOutlinePets size={60} color="#26CC6B" />
         </div>
       </section>
-
-      {/* Postagem de imagens do pet - Ícone à esquerda, Texto à direita */}
       <section className="funcionalidade-item esquerda">
         <div className="icone">
           <FaCameraRetro size={60} color="#26CC6B" />
@@ -51,7 +43,6 @@ const Funcionalidades = () => {
           <p>Crie um perfil para seu pet e compartilhe fotos com a comunidade. Mostre como ele está vivendo feliz no novo lar!</p>
         </div>
       </section>
-
     </section>
   );
 };

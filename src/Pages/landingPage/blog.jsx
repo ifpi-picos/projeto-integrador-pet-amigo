@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import './landing.css';
-
-// Importação das imagens
 import imgblog1 from '../../assets/landingPage/imgblog1.jpg';
 import imgblog2 from '../../assets/landingPage/imgblog2.jpeg';
 import imgblog3 from '../../assets/landingPage/imgblog3.jpeg';
 
-// Lista de posts do blog
 const posts = [
   { id: 1, titulo: "Como adotar um pet?", imagem: imgblog1, link: "/blog/como-adotar" },
   { id: 2, titulo: "Benefícios da adoção responsável", imagem: imgblog2, link: "/blog/beneficios-adocao" },
@@ -21,8 +18,6 @@ const Blog = () => {
   return (
     <section id="blog" className="blog-section">
       <h2 className="blog-title">Conheça o nosso blog</h2>
-
-      {/* Exibição inicial dos posts */}
       <div className="blog-container">
         {posts.slice(0, 3).map(post => (
           <div key={post.id} className="blog-card">
@@ -32,8 +27,6 @@ const Blog = () => {
           </div>
         ))}
       </div>
-
-      {/* Exibição adicional ao clicar em "Ler mais" */}
       {mostrarMais && (
         <div className="blog-extra">
           {posts.slice(3).map(post => (
@@ -45,8 +38,6 @@ const Blog = () => {
           ))}
         </div>
       )}
-
-      {/* Botão para expandir conteúdo */}
       <button className="blog-button" onClick={() => setMostrarMais(!mostrarMais)}>
         {mostrarMais ? "Ver menos" : "Ler mais"}
       </button>
