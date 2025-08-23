@@ -217,7 +217,7 @@ const MissingAlert = () => {
                     <p><strong>Desaparecido em:</strong> {formatDate(alert.lastSeenDate)}</p>
                     <p><strong>Local:</strong> {alert.lastSeenAddress}</p>
                   </div>
-                  
+                                    
                   <div className="alert-footer">
                     <p className="contact-info">Contato: {alert.contactPhone}</p>
                     {alert.reward && (

@@ -9,14 +9,6 @@
     --button-gray: #f0f0f0;
 }
 
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #fff;
-    height: 100vh;
-    overflow: hidden;
-}
-
 .cadastro-page-container {
     display: flex;
     min-height: 100vh;

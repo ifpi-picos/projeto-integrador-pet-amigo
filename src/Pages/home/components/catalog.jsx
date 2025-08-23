@@ -1,8 +1,7 @@
-// home/components/catalog.jsx
 import React, { useState, useEffect } from 'react';
 import AnimalCard from './animalcard.jsx';
 import { FaArrowRight } from "react-icons/fa";
-import { supabase } from '../../../supabaseClient'; // Adicionado
+import { supabase } from '../../../supabaseClient';
 
 const SkeletonCard = () => (
     <div className="animal-card skeleton">
@@ -18,31 +17,11 @@ function Catalog() {
     const [animais, setAnimais] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // Adicionado: a função searchFn que estava faltando
-    const searchFn = async (query) => {
-        setLoading(true);
-        const { data, error } = await supabase
-            .from('animals')
-            .select(`
-                *,
-                pet_photos (*)
-            `)
-            .ilike('name', `%${query}%`) // Exemplo de busca por nome
-            .limit(15);
-        
-        if (error) {
-            console.error('Erro na busca:', error);
-            setAnimais([]);
-        } else {
-            setAnimais(data || []);
-        }
-        setLoading(false);
-    };
-
     useEffect(() => {
         const fetchAnimais = async () => {
             setLoading(true);
 
+            // CORREÇÃO: Usando o nome correto da tabela 'animals' (minúsculo)
             const { data, error } = await supabase
                 .from('animals')
                 .select(`
@@ -53,17 +32,16 @@ function Catalog() {
 
             if (error) {
                 console.error('Erro ao buscar animais:', error);
-                setAnimais([]); // Define um array vazio em caso de erro
+                setAnimais([]);
             } else {
-                console.log("Dados retornados pelo Supabase:", data);
-                setAnimais(data || []); // Define os dados (ou um array vazio se data for nulo)
+                setAnimais(data || []);
             }
             
             setLoading(false);
         };
 
         fetchAnimais();
-    }, []); // A dependência [] garante que o useEffect rode apenas uma vez
+    }, []);
 
     if (loading) {
         return (
@@ -91,7 +69,7 @@ function Catalog() {
                         <AnimalCard key={animal.id} animal={animal} />
                     ))
                 ) : (
-                    <p className="no-animals-message">Nenhum animal para adoção encontrado. Seja o primeiro a cadastrar um!</p>
+                    <p className="no-animals-message">Nenhum animal para adoção encontrado.</p>
                 )}
             </div>
             {animais.length > 0 && (

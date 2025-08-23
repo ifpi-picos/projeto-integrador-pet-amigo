@@ -30,7 +30,7 @@ function NotFoundPage() {
                 
                 {/* Grupo de botões com as duas opções de navegação */}
                 <div className="not-found-actions">
-                    <button onClick={handleGoBack} className="back-button">
+                    <button onClick={handleGoBack} className="error-back-button">
                         <FaArrowLeft />
                         <span>Voltar</span>
                     </button>

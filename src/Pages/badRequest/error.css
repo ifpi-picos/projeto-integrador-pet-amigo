@@ -74,7 +74,7 @@
 }
 
 /* Estilo base para os botões */
-.not-found-actions .back-button,
+.not-found-actions .error-back-button,
 .not-found-actions .home-button {
     display: flex;
     align-items: center;
@@ -107,16 +107,16 @@
 }
 
 /* Botão Secundário (Voltar) */
-.back-button {
+.error-back-button {
     background-color: var(--white-background);
     color: var(--black-text-details);
     border-color: var(--lightgray-background);
 }
-.back-button svg {
+.error-back-button svg {
     color: var(--darkgray-background);
 }
 
-.back-button:hover {
+.error-back-button:hover {
     border-color: var(--darkgray-background);
     background-color: var(--lightgray-background);
 }

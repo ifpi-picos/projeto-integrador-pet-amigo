@@ -51,7 +51,6 @@
   background: transparent;
   height: 100%;
   font-size: 16px;
-  color: var(--black-text-details);
 }
 
 .animals-page {
@@ -79,7 +78,7 @@
   border: none;
   background-color: var(--lightgray-background);
   height: 80%;
-  width: 45px;
+  width: 55px;
   border-radius: 12px;
   display: flex;  
   align-items: center;
@@ -426,6 +425,10 @@ html[data-theme="dark"] .profile-box:hover {
      grid-template-columns: repeat(auto-fill, minmax(260px, 3fr));
 }
 
+.no-animals-message {
+  font-size: 1.2rem;
+  color: var(--darkgray-background);
+}
 
 /* --- Estilos para o Esqueleto de Carregamento --- */
 .animal-card.skeleton {

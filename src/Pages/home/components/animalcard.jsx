@@ -1,4 +1,3 @@
-// home/components/animalcard.jsx
 import React from 'react';
 import { IoLocationSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom';
@@ -18,11 +17,10 @@ function AnimalCard({ animal }) {
             <img src={photoUrl} alt={`Foto do ${animal.name}`} />
             <div className="animal-info">
                 <h3>{animal.name}</h3>
-                {/* CORREÇÃO: Trocado 'animal.race' por 'animal.breed' */}
                 <p className="animal-breed">{animal.breed} • {animal.species}</p>
                 {animal.location && (
                     <p className="animal-location">
-                        <IoLocationSharp />
+                        <IoLocationSharp /> 
                         {animal.location}
                     </p>
                 )}

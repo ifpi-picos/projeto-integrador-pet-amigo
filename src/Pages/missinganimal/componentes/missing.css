@@ -23,7 +23,6 @@
   transform: scale(1.05);
   filter: brightness(1.12);
 }
-@import '../../../context/variables.css';
 
 /* === CARD DE ANIMAL DESAPARECIDO (PADRÃO HOME) === - Usar nomes de classes específicos para cada contexto de botão e evitar duplicidade. */
 /* Organização: variáveis globais importadas no topo, comentários claros, sem !important desnecessário. */
@@ -65,6 +64,8 @@
   font-size: 0.9rem;
   color: var(--darkgray-background);
 }
+
+
 
 .animal-location {
   display: flex;
@@ -189,8 +190,6 @@
   filter: brightness(1.05);
 }
 
-@import '../../../context/variables.css';
-
 /* ===== ESTILOS GERAIS ===== */
 .missing-form-container {
   max-width: 800px;
@@ -244,23 +243,6 @@ label {
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
-  color: var(--black-text-details);
-}
-
-/* ===== CAMPOS DE ENTRADA CORRIGIDOS ===== */
-input[type="text"],
-input[type="tel"],
-input[type="date"],
-input[type="number"],
-select,
-textarea {
-  width: 100%;
-  padding: 12px 16px;
-  border: 1px solid var(--lightgray-background);
-  border-radius: 20px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  background-color: var(--white-background);
   color: var(--black-text-details);
 }
 

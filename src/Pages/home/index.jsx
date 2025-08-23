@@ -1,62 +1,58 @@
-// home/index.jsx
 import React, { useState, useEffect } from "react";
 import "./home.css";
 import Top from "./components/top.jsx";
 import Carousel from "./components/carousel.jsx";
 import Catalog from "./components/catalog.jsx";
 import Categories from "./components/categories.jsx";
-import FilterSidebar from "./components/FilterSidebar.jsx";
 import { supabase } from "../../supabaseClient";
 
 function Home() {
     const [searchTerm, setSearchTerm] = useState('');
     const [animais, setAnimais] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true); // Começa como true
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+    // useEffect agora busca os animais com base no searchTerm
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchAnimals = async () => {
             setLoading(true);
-            try {
-                // Ajusta a consulta para buscar os animais e suas fotos de capa
-                let query = supabase
-                    .from('Animais')
-                    .select(`
-                        *, 
-                        pet_photos!inner(url, is_cover)
-                    `)
-                    .eq('pet_photos.is_cover', true);
+            
+            let query = supabase
+                .from('animals')
+                .select(`*, pet_photos(*)`);
 
-                if (searchTerm) {
-                    query = supabase.rpc('search_animais', { search_term: searchTerm });
-                }
-
-                const { data: animaisData, error: animaisError } = await query;
-                
-                if (animaisError) {
-                    console.error('Erro na busca de animais:', animaisError);
-                    return;
-                }
-                
-                setAnimais(animaisData || []);
-            } catch (err) {
-                console.error('Erro inesperado:', err);
-            } finally {
-                setLoading(false);
+            // Se houver um termo de busca, adiciona o filtro
+            if (searchTerm) {
+                // Usando 'ilike' para busca case-insensitive
+                query = query.ilike('name', `%${searchTerm}%`);
             }
+
+            const { data, error } = await query.limit(15);
+            
+            if (error) {
+                console.error('Erro ao buscar animais:', error);
+                setAnimais([]);
+            } else {
+                setAnimais(data || []);
+            }
+            setLoading(false);
         };
         
-        fetchData();
-    }, [searchTerm]);
+        fetchAnimals();
+    }, [searchTerm]); // Re-executa a busca sempre que o searchTerm mudar
 
     return (
         <div className="home-page">
-            <Top searchTerm={searchTerm} setSearchTerm={setSearchTerm} onOpenSidebar={() => setIsSidebarOpen(true)} />
+            {/* Passa o estado e as funções de controle para o Top.jsx */}
+            <Top 
+                searchTerm={searchTerm} 
+                setSearchTerm={setSearchTerm} 
+                onOpenSidebar={() => setIsSidebarOpen(true)} 
+            />
             <Carousel />
             <Categories />
-            {/* Passando os dados e o estado de carregamento para o componente Catalog */}
-            <Catalog animais={animais} loading={loading} searchTerm={searchTerm} />
-            <FilterSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+            {/* O Catalog agora só recebe os dados para exibir */}
+            <Catalog animais={animais} loading={loading} />
         </div>
     );
 }

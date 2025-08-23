@@ -40,6 +40,7 @@ html[data-theme="dark"] {
   --black-text-details: #e4e6eb;        /* Texto principal no tema escuro */
   --skeleton-loading-color: #333333;
 
+
   /* Cores de interação - Tema Escuro */
   --sidebar-active-item-bg: rgba(var(--rgb-green-primary-values), 0.2);
   --box-shadow-color: rgba(0, 0, 0, 0.4);
