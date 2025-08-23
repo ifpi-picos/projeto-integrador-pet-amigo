@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../../supabaseClient';
 import MissingCard from './missingcard';
-import MissingForm from "../Componentes/MissingForm.jsx";
+import MissingForm from "missingform.jsx";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './missing.css';
