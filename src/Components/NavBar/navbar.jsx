@@ -9,6 +9,7 @@ import { HiVideoCamera } from "react-icons/hi";
 import { GoHomeFill } from "react-icons/go";
 import { LuLogOut } from "react-icons/lu";
 import { MdError } from "react-icons/md";
+import { FaShieldDog } from "react-icons/fa6";
 import logo from "@/assets/logo.png";
 
 
@@ -78,16 +79,16 @@ function Navbar() {
                         <span className="sidebar-text">Feed</span>
                     </NavLink>
                 </li>
-                <li className="sidebar-item">
-                    <NavLink to="/chat">
-                        <span className="sidebar-icon"><IoChatbubbleEllipses /></span>
-                        <span className="sidebar-text">Comunidade</span>
-                    </NavLink>
-                </li>
-                <li className="sidebar-item">
+                <li className="sidebar-item sidebar-mobile-remove">
                    <NavLink to="/missinganimal">
                        <span className="sidebar-icon"><MdError /></span>
                        <span className="sidebar-text">Desaparecidos</span>
+                   </NavLink>
+                </li>
+                <li className="sidebar-item sidebar-mobile-show">
+                   <NavLink to="/dashboard">
+                       <span className="sidebar-icon"><FaShieldDog /></span>
+                       <span className="sidebar-text">Painel</span>
                    </NavLink>
                 </li>
                 <li className="sidebar-item">

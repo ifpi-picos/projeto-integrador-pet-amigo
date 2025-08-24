@@ -12,6 +12,7 @@ import BadRequest from "./Pages/badRequest/error.jsx";
 import PetPage from "./Pages/pet-page/PetPage.jsx";
 import CadastroAnimal from "./Pages/CadastroAnimal/CadastroAnimal.jsx";
 import MissingAnimalPage from './Pages/missinganimal/missinganimal.jsx';
+import Dashboard from "./Pages/dashboard/dashboard.jsx";
 
 function App() {
   return (
@@ -23,8 +24,10 @@ function App() {
 
       {/* Grupo de Rotas 2: Páginas COM a Navbar */}
       <Route element={<LayoutNav />}>
+
         <Route path="/home" element={<Home />} />
         <Route path="/pet/:petId" element={<PetPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/:userId" element={<Profile />} />
         <Route path="/cadastro-animal" element={<CadastroAnimal />} />

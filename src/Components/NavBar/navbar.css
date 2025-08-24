@@ -57,6 +57,10 @@
     box-sizing: border-box;
 }
 
+.sidebar-mobile-show {
+    display: none;
+}
+
 .sidebar-item-push-to-bottom {
     margin-top: auto;
 }
@@ -309,5 +313,13 @@ input:checked + .slider:before {
     .sidebar-item a.active .sidebar-text,
     .sidebar-item a.active .sidebar-icon {
         color: var(--green-primary);
+    }
+
+    .sidebar-mobile-remove {
+        display: none;
+    }
+
+    .sidebar-mobile-show {
+        display: flex;
     }
 }

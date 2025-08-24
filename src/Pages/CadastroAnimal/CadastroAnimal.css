@@ -1,127 +1,111 @@
-/* src/components/CadastroAnimal.css */
-
-:root {
-    --green-primary: #27c16e;
-    --green-darker: #23643a;
-    --lightgray-background: #8fd19e;
-    --placeholder-text: #666;
-    --dark-text: #333;
-    --button-gray: #f0f0f0;
-}
+@import '../../context/variables.css'; /* Garanta que o caminho está correto */
 
 .cadastro-page-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
+    padding: 2rem;
 }
 
 .cadastro-content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
     width: 100%;
-    overflow-y: auto;
+    max-width: 800px;
+    background-color: var(--white-background);
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem 3rem;
+    animation: fadeIn 0.5s ease-out;
 }
 
-.form-wrapper {
-    width: 100%;
-    max-width: 1400px;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .form-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
+    text-align: center;
+    margin-bottom: 2.5rem;
 }
 
 .form-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--green-darker);
-    letter-spacing: 1px;
+    font-family: var(--font-main);
+    font-size: 2rem;
+    color: var(--black-text-details);
     margin: 0;
 }
 
-.header-image-container {
-    width: 180px;
-    height: 180px;
-}
-
-.header-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+.form-header p {
+    font-size: 1rem;
+    color: var(--darkgray-background);
+    margin-top: 0.5rem;
 }
 
 .cadastro-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px 40px;
-    width: 100%;
+    gap: 1.5rem;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
 }
 
 .form-group.full-width {
     grid-column: 1 / -1;
 }
 
-form label {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: var(--green-darker);
-    margin-bottom: 5px;
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--darkgray-background);
+    margin-bottom: 0.5rem;
 }
 
-form input,
-form textarea {
-    font-size: 1.1rem;
-    padding: 16px 20px;
-    border: 2px solid var(--lightgray-background);
-    border-radius: 16px;
+.form-group input,
+.form-group textarea,
+.form-group select {
+    font-size: 1rem;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     width: 100%;
-    min-width: 0;
-    height: 50px;
-    box-sizing: border-box;
-    background: #fff;
-    transition: border-color 0.2s;
+    background-color: #f9f9f9;
+    transition: all 0.2s ease-in-out;
 }
 
-form input:focus,
-form textarea:focus {
-    border-color: var(--green-darker);
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
+    border-color: var(--green-primary);
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(var(--rgb-green-primary-values), 0.1);
 }
 
-form textarea {
+.form-group textarea {
     resize: vertical;
-    min-height: 15vh;
-    height: auto;
+    min-height: 120px;
 }
 
 .file-input-wrapper {
     position: relative;
-    display: inline-flex;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    cursor: pointer;
-    background-color: white;
-    border: 2px solid var(--lightgray-background);
-    border-radius: 16px;
-    padding: 16px 20px;
-    width: 100%;
-    height: 50px;
+    justify-content: center;
+    text-align: center;
+    color: var(--placeholder-text);
+    transition: background-color 0.2s ease;
+}
+
+.file-input-wrapper:hover {
+    background-color: #f9f9f9;
+    border-color: var(--green-primary);
 }
 
 .file-input {
@@ -135,48 +119,57 @@ form textarea {
 }
 
 .file-input-label {
-    background-color: var(--button-gray);
-    color: var(--dark-text);
-    font-weight: bold;
-    padding: 10px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    white-space: nowrap;
-    margin-right: 16px;
+    font-weight: 600;
+    color: var(--green-primary);
 }
 
 .file-name {
-    color: var(--placeholder-text);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Estilos para o preview das imagens */
+.image-previews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.image-previews img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #eee;
 }
 
 .submit-group {
     grid-column: 1 / -1;
     display: flex;
-    justify-content: center;
-    margin-top: 25px;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
 }
 
 .submit-button {
-    font-size: 1.4rem;
-    padding: 18px 0;
+    font-size: 1.1rem;
+    padding: 14px 0;
     border: none;
-    border-radius: 16px;
+    border-radius: 8px;
     width: 100%;
-    max-width: 400px;
+    max-width: 300px;
     background: var(--green-primary);
     color: #fff;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: background 0.2s;
+    transition: all 0.2s ease;
 }
 
 .submit-button:hover:not(:disabled) {
     background: var(--green-darker);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(var(--rgb-green-primary-values), 0.3);
 }
 
 .submit-button:disabled {
@@ -186,102 +179,24 @@ form textarea {
 
 .error-message,
 .success-message {
-    grid-column: 1 / -1;
     text-align: center;
-    margin-top: 12px;
-    font-size: 1.1rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
-.error-message {
-    color: red;
-}
+.error-message { color: #e53e3e; }
+.success-message { color: #38a169; }
 
-.success-message {
-    color: green;
-}
-
-/* --- Botão de Voltar (Específico para Mobile) --- */
-.back-button {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 1000;
-  background: none;
-  border: none;
-  color: var(--green-primary);
-  cursor: pointer;
-  padding: 0;
-  display: none; /* Escondido por padrão em telas grandes */
-}
-
-/* --- Responsividade --- */
-@media (max-width: 900px) {
-    body {
-        height: auto;
-        overflow: auto;
+@media (max-width: 768px) {
+    .cadastro-page-container {
+        padding: 1rem;
     }
-
     .cadastro-content {
-        padding: 24px 16px;
+        padding: 1.5rem;
     }
-
-    .form-wrapper {
-        max-width: 100%;
-        height: auto;
-    }
-
-    .form-header {
-        flex-direction: column-reverse;
-        text-align: center;
-        margin-bottom: 24px;
-    }
-
-    .form-title {
-        font-size: 2rem;
-        margin-top: 24px;
-        margin-bottom: 0;
-    }
-    
     .cadastro-form {
         grid-template-columns: 1fr;
-        padding: 0 10px;
-        gap: 20px;
-    }
-    
-    .submit-group {
-        width: 100%;
-    }
-    
-    .submit-button {
-        max-width: 100%;
-    }
-    
-    .form-group.full-width {
-        grid-column: 1;
-    }
-
-    form label {
-        font-size: 1.1rem;
-    }
-
-    form input,
-    form textarea,
-    .file-input-wrapper {
-        font-size: 1rem;
-        padding: 12px 16px;
-        height: 44px;
-    }
-
-    form textarea {
-        min-height: 80px;
-    }
-
-    .submit-button {
-        font-size: 1.2rem;
-        padding: 16px 0;
-    }
-
-    .back-button {
-        display: block; /* Mostra o botão em telas menores */
+        gap: 1rem;
     }
 }
