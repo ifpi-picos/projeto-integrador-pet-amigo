@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 
 import MissingMap from './components/missingmap.jsx';
 import MissingList from './components/missinglist.jsx';
-import MissingReportModal from './components/MissingReportModal.jsx';
-import MyReportsModal from './components/MyReportsModal.jsx';
+import MissingReportModal from './components/missingreportmodal.jsx';
+import MyReportsModal from './components/myreportsmodal.jsx';
 import './missinganimal.css'; 
 
 import { TbMessageReportFilled } from "react-icons/tb";
