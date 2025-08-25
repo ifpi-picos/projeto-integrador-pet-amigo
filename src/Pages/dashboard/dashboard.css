@@ -1,0 +1,144 @@
+@import '../../context/variables.css';
+
+/* --- AVISO PARA DESKTOP --- */
+.desktop-warning {
+    display: none; /* Escondido por padrão (mobile-first) */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+.desktop-warning svg {
+    font-size: 4rem;
+    color: var(--green-primary);
+    margin-bottom: 1.5rem;
+}
+
+.desktop-warning h1 {
+    font-family: var(--font-main);
+}
+
+/* --- ESTILOS PRINCIPAIS (MOBILE-FIRST) --- */
+.dashboard-container {
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.dashboard-header {
+    text-align: center;
+}
+
+.dashboard-header h1 {
+    font-family: var(--font-main);
+    font-size: 2rem;
+    margin: 0;
+}
+
+.green-title {
+    color: var(--green-primary);
+}
+
+.dashboard-header p {
+    font-size: 1rem;
+    color: var(--darkgray-background);
+    margin-top: 0.25rem;
+}
+
+.dashboard-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.dashboard-card {
+    background-color: var(--white-background);
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.dashboard-card:active {
+    transform: scale(0.98);
+}
+
+.dashboard-card .card-icon {
+    font-size: 2.5rem;
+    padding: 1rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-text h2 {
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    margin: 0 0 0.25rem 0;
+}
+
+.card-text p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--darkgray-background);
+}
+
+/* Estilos específicos para cada card */
+.dashboard-card.primary {
+    background-color: var(--green-primary);
+    color: white;
+}
+.dashboard-card.primary .card-icon {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+.dashboard-card.primary .card-text p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.dashboard-card.secondary .card-icon {
+    background-color: rgba(var(--rgb-green-primary-values), 0.1);
+    color: var(--green-primary);
+}
+
+.dashboard-settings-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--darkgray-background);
+    font-weight: 500;
+    transition: color 0.2s ease;
+    margin: 1rem auto 0 auto; /* Centraliza o link */
+}
+
+.dashboard-settings-link:hover {
+    color: var(--green-primary);
+}
+
+/* A MÁGICA ACONTECE AQUI */
+/* Para telas com largura MÍNIMA de 769px (tablets e desktops) */
+@media (min-width: 769px) {
+    .dashboard-container {
+        display: none; /* Esconde o conteúdo principal */
+    }
+
+    .desktop-warning {
+        display: flex; /* Mostra o aviso */
+    }
+}

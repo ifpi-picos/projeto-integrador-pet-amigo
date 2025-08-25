@@ -433,3 +433,50 @@
 .fab-actions.open .fab-action-btn:nth-child(3):hover {
     transform: translate(-130px, 8px) scale(1.1);
 }
+
+@media (max-width: 768px) {
+    .fab-container {
+
+        bottom: 100px; 
+        right: 1.5rem; 
+    }
+
+    .fab-wrapper {
+        width: 50px;
+        height: 50px;
+    }
+
+    .fab-main {
+        width: 75px;
+        height: 75px;
+        font-size: 1.2rem;
+    }
+
+    .fab-action-btn {
+        width: 55px;
+        height: 55px;
+        font-size: 1.5rem;
+    }
+
+    /* Ajusta as posições dos botões de ação para o novo tamanho */
+    .fab-actions.open .fab-action-btn:nth-child(1) {
+        transform: translate(8px, -120px);
+    }
+    .fab-actions.open .fab-action-btn:nth-child(1):hover {
+        transform: translate(8px, -120px) scale(1.1);
+    }
+
+    .fab-actions.open .fab-action-btn:nth-child(2) {
+        transform: translate(-80px, -80px);
+    }
+    .fab-actions.open .fab-action-btn:nth-child(2):hover {
+        transform: translate(-80px, -80px) scale(1.1);
+    }
+
+    .fab-actions.open .fab-action-btn:nth-child(3) {
+        transform: translate(-120px, 8px);
+    }
+    .fab-actions.open .fab-action-btn:nth-child(3):hover {
+        transform: translate(-120px, 8px) scale(1.1);
+    }
+}   

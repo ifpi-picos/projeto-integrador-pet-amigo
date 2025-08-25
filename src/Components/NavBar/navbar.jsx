@@ -4,7 +4,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { supabase } from "../../supabaseClient";
 import { TbSettingsFilled, TbMoonFilled, TbSunFilled } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
-import { IoChatbubbleEllipses } from "react-icons/io5";
 import { HiVideoCamera } from "react-icons/hi";
 import { GoHomeFill } from "react-icons/go";
 import { LuLogOut } from "react-icons/lu";

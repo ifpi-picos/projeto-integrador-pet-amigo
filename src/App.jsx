@@ -13,6 +13,7 @@ import PetPage from "./Pages/pet-page/PetPage.jsx";
 import CadastroAnimal from "./Pages/CadastroAnimal/CadastroAnimal.jsx";
 import MissingAnimalPage from './Pages/missinganimal/missinganimal.jsx';
 import Dashboard from "./Pages/dashboard/dashboard.jsx";
+import Settings from "./Pages/settingsPage/settings.jsx";
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
         <Route path="/profile/:userId" element={<Profile />} />
         <Route path="/cadastro-animal" element={<CadastroAnimal />} />
         <Route path="/missinganimal" element={<MissingAnimalPage />} />
+        <Route path="/settings" element={<Settings />} />
+
       </Route>
     </Routes>
   );

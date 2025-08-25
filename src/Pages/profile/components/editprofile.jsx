@@ -1,33 +1,75 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect } from 'react'
 import { supabase } from '../../../supabaseClient';
+import { useAuth } from '@/context/AuthContext';
+import { v4 as uuidv4 } from 'uuid';
 
 function EditProfilePopup({ profile, onClose, onProfileUpdate }) {
-    // Inicializa o estado do formulário com os dados do perfil atual
-    const [formData, setFormData] = useState({});
+    const { user } = useAuth();
+    
+    // Estado para os campos de texto do formulário
+    const [formData, setFormData] = useState({  
+        bio: '',
+        phone: '',
+        display_name: '',
+        full_name: '',
+        ong_name: '',
+        responsible_name: ''
+    });
+
+    // Estados separados para os arquivos de imagem
+    const [avatarFile, setAvatarFile] = useState(null);
+    const [bannerFile, setBannerFile] = useState(null);
+    const [avatarPreview, setAvatarPreview] = useState(null);
+    const [bannerPreview, setBannerPreview] = useState(null);
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
     useEffect(() => {
         if (profile) {
             setFormData({
-                // Campos comuns
-                avatar_url: profile.avatar_url || '',
-                url_banner: profile.url_banner || '',
                 bio: profile.bio || '',
                 phone: profile.phone || '',
-                // Campos específicos de Pessoa
                 display_name: profile.display_name || '',
                 full_name: profile.full_name || '',
-                // Campos específicos de ONG
                 ong_name: profile.ong_name || '',
                 responsible_name: profile.responsible_name || ''
             });
+            // Define os previews iniciais com as imagens existentes
+            setAvatarPreview(profile.avatar_url);
+            setBannerPreview(profile.url_banner);
         }
     }, [profile]);
 
-    const handleChange = (e) => {
+    const handleTextChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleAvatarChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setAvatarFile(file);
+            setAvatarPreview(URL.createObjectURL(file));
+        }
+    };
+    
+    const handleBannerChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setBannerFile(file);
+            setBannerPreview(URL.createObjectURL(file));
+        }
+    };
+    
+    const uploadImage = async (file, folder) => {
+        if (!file) return null;
+        const fileExtension = file.name.split('.').pop();
+        const filePath = `${folder}/${user.id}/${uuidv4()}.${fileExtension}`; // Organiza por ID de usuário
+
+        await supabase.storage.from('assets-db').upload(filePath, file, { upsert: true });
+        const { data: { publicUrl } } = supabase.storage.from('assets-db').getPublicUrl(filePath);
+        return publicUrl;
     };
 
     const handleSubmit = async (e) => {
@@ -35,89 +77,73 @@ function EditProfilePopup({ profile, onClose, onProfileUpdate }) {
         setLoading(true);
         setError('');
 
-        let tableName = '';
-        let dataToUpdate = {};
+        try {
+            // 1. Faz o upload das novas imagens (se houver)
+            const newAvatarUrl = await uploadImage(avatarFile, 'avatares');
+            const newBannerUrl = await uploadImage(bannerFile, 'banners');
 
-        // Prepara os dados com base no tipo de perfil
-        if (profile.user_type === 'PESSOA') {
-            tableName = 'user_profiles';
-            dataToUpdate = {
-                display_name: formData.display_name,
-                full_name: formData.full_name,
-                bio: formData.bio,
-                phone: formData.phone,
-                avatar_url: formData.avatar_url,
-                url_banner: formData.url_banner
-            };
-        } else {
-            tableName = 'ong_profiles';
-            dataToUpdate = {
-                ong_name: formData.ong_name,
-                responsible_name: formData.responsible_name,
-                bio: formData.bio,
-                phone: formData.phone,
-                avatar_url: formData.avatar_url,
-                url_banner: formData.url_banner
-            };
-        }
+            // 2. Prepara os dados para atualização
+            let tableName = profile.user_type === 'PESSOA' ? 'user_profiles' : 'ong_profiles';
+            let dataToUpdate = profile.user_type === 'PESSOA' 
+                ? { display_name: formData.display_name, full_name: formData.full_name, bio: formData.bio, phone: formData.phone }
+                : { ong_name: formData.ong_name, responsible_name: formData.responsible_name, bio: formData.bio, phone: formData.phone };
+            
+            // Adiciona as novas URLs apenas se um novo arquivo foi enviado
+            if (newAvatarUrl) dataToUpdate.avatar_url = newAvatarUrl;
+            if (newBannerUrl) dataToUpdate.url_banner = newBannerUrl;
 
-        const { error: updateError } = await supabase
-            .from(tableName)
-            .update(dataToUpdate)
-            .eq('id', profile.id);
-
-        setLoading(false);
-
-        if (updateError) {
-            setError(updateError.message);
-            console.error("Erro ao atualizar perfil:", updateError);
-        } else {
-            onProfileUpdate(); // Avisa o pai que os dados mudaram para recarregar
+            // 3. Atualiza a tabela de perfil no banco
+            const { error: updateError } = await supabase.from(tableName).update(dataToUpdate).eq('id', profile.id);
+            if (updateError) throw updateError;
+            
+            onProfileUpdate(); // Avisa o pai para recarregar os dados
             onClose(); // Fecha o popup
-        }
-    };
 
-    // Impede que o clique dentro do popup o feche
-    const handlePopupContentClick = (e) => {
-        e.stopPropagation();
+        } catch (err) {
+            setError(err.message);
+            console.error("Erro ao atualizar perfil:", err);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div className="popup-overlay" onClick={onClose}>
-            <div className="popup-content" onClick={handlePopupContentClick}>
+            <div className="popup-content" onClick={(e) => e.stopPropagation()}>
                 <button className="popup-close-btn" onClick={onClose}>&times;</button>
                 <h2>Editar Perfil</h2>
                 <form onSubmit={handleSubmit} className="edit-profile-form">
-                    {/* Renderização condicional dos campos */}
                     {profile.user_type === 'PESSOA' ? (
                         <>
-                            <label htmlFor="display_name">Nome de Exibição</label>
-                            <input id="display_name" name="display_name" value={formData.display_name || ''} onChange={handleChange} />
-                            
-                            <label htmlFor="full_name">Nome Completo</label>
-                            <input id="full_name" name="full_name" value={formData.full_name || ''} onChange={handleChange} />
+                            <label>Nome de Exibição</label>
+                            <input name="display_name" value={formData.display_name} onChange={handleTextChange} />
+                            <label>Nome Completo</label>
+                            <input name="full_name" value={formData.full_name} onChange={handleTextChange} />
                         </>
                     ) : (
                         <>
-                            <label htmlFor="ong_name">Nome da ONG</label>
-                            <input id="ong_name" name="ong_name" value={formData.ong_name || ''} onChange={handleChange} />
-                            
-                            <label htmlFor="responsible_name">Nome do Responsável</label>
-                            <input id="responsible_name" name="responsible_name" value={formData.responsible_name || ''} onChange={handleChange} />
+                            <label>Nome da ONG</label>
+                            <input name="ong_name" value={formData.ong_name} onChange={handleTextChange} />
+                            <label>Nome do Responsável</label>
+                            <input name="responsible_name" value={formData.responsible_name} onChange={handleTextChange} />
                         </>
                     )}
                     
-                    <label htmlFor="bio">Biografia</label>
-                    <textarea id="bio" name="bio" value={formData.bio || ''} onChange={handleChange}></textarea>
+                    <label>Biografia</label>
+                    <textarea name="bio" value={formData.bio} onChange={handleTextChange}></textarea>
                     
-                    <label htmlFor="phone">Telefone</label>
-                    <input id="phone" name="phone" value={formData.phone || ''} onChange={handleChange} />
+                    <label>Telefone</label>
+                    <input name="phone" value={formData.phone} onChange={handleTextChange} />
                     
-                    <label htmlFor="avatar_url">URL da Foto de Perfil</label>
-                    <input id="avatar_url" name="avatar_url" value={formData.avatar_url || ''} onChange={handleChange} />
+                    <hr />
                     
-                    <label htmlFor="url_banner">URL do Banner</label>
-                    <input id="url_banner" name="url_banner" value={formData.url_banner || ''} onChange={handleChange} />
+                    <label>Foto de Perfil</label>
+                    {avatarPreview && <img src={avatarPreview} alt="Preview do Avatar" className="image-preview" />}
+                    <input type="file" onChange={handleAvatarChange} accept="image/*" />
+                    
+                    <label>Banner do Perfil</label>
+                    {bannerPreview && <img src={bannerPreview} alt="Preview do Banner" className="image-preview banner-preview" />}
+                    <input type="file" onChange={handleBannerChange} accept="image/*" />
 
                     {error && <p className="error-message">{error}</p>}
                     
