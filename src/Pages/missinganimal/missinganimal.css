@@ -316,14 +316,9 @@
     font-weight: 500;
 }
 
-@import '../../context/variables.css';
-
-/* ... (todos os seus estilos existentes como .missing-animal-page, .action-button, etc., permanecem aqui) ... */
-/* ... (.missing-list-section, .missing-card, etc. também permanecem) ... */
-
 
 /* ========================================================= */
-/* --- ESTILOS ATUALIZADOS E NOVOS PARA AMBOS OS MODAIS --- */
+/* --- ESTILOS ATUALIZADOS DOSMODAIS --- */
 /* ========================================================= */
 
 @keyframes fadeIn {
