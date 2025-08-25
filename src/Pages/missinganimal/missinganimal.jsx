@@ -1,63 +1,108 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../../supabaseClient';
-// Função para calcular distância entre dois pontos (Haversine)
-function getDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371; // km
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a =
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  return R * c;
-}
+import { useAuth } from '@/context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
-// Função para alertar usuários próximos
-async function alertNearbyUsers(animal) {
-  // 1. Buscar todos usuários do banco
-  const { data: users, error } = await supabase.from('users').select('*');
-  if (error) return;
+import MissingMap from './components/missingmap.jsx';
+import MissingList from './components/missinglist.jsx';
+import MissingReportModal from './components/MissingReportModal.jsx';
+import MyReportsModal from './components/MyReportsModal.jsx';
+import './missinganimal.css'; 
 
-  // 2. Filtrar usuários próximos (exemplo: raio de 10km)
-  const nearbyUsers = users.filter(user => {
-    if (!user.latitude || !user.longitude) return false;
-    const dist = getDistance(
-      animal.coordinates.lat,
-      animal.coordinates.lng,
-      user.latitude,
-      user.longitude
+import { TbMessageReportFilled } from "react-icons/tb";
+import { TbReportSearch } from "react-icons/tb";
+
+function MissingAnimalPage() {
+    const [missingAnimals, setMissingAnimals] = useState([]);
+    const [myReportedAnimals, setMyReportedAnimals] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+    const [isMyReportsModalOpen, setIsMyReportsModalOpen] = useState(false);
+
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    const fetchMissingAnimals = useCallback(async () => {
+        setLoading(true);
+        // Busca na lista principal apenas os animais com status 'missing'
+        const { data, error } = await supabase
+            .from('missing_animals')
+            .select('*')
+            .eq('status', 'missing')
+            .order('created_at', { ascending: false });
+        
+        if (error) {
+            console.error('Erro ao buscar animais desaparecidos:', error);
+        } else {
+            setMissingAnimals(data || []);
+        }
+        setLoading(false);
+    }, []);
+
+    useEffect(() => {
+        fetchMissingAnimals();
+    }, [fetchMissingAnimals]);
+
+    const handleOpenMyReports = async () => {
+        if (!user) {
+            alert("Você precisa estar logado para ver seus reportes.");
+            navigate('/auth');
+            return;
+        }
+        
+        // Busca todos os animais (missing e found) reportados pelo usuário logado
+        const { data, error } = await supabase
+            .from('missing_animals')
+            .select('*')
+            .eq('reporter_id', user.id)
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            alert("Erro ao buscar seus animais reportados.");
+        } else {
+            setMyReportedAnimals(data || []);
+            setIsMyReportsModalOpen(true);
+        }
+    };
+
+    return (
+        <div className="missing-animal-page">
+            <h1 className="missingpage-title">Mapa de Animais Desaparecidos</h1>
+            {loading ? (
+                <div className="map-loading-placeholder">Carregando mapa...</div>
+            ) : (
+                <MissingMap animals={missingAnimals} />
+            )}
+
+            <div className='missingpage-user-actions'> 
+                <button className='action-button primary' onClick={() => setIsReportModalOpen(true)}>
+                    <TbMessageReportFilled />
+                    <span>Reportar</span>
+                </button>
+                <button className='action-button secondary' onClick={handleOpenMyReports}>
+                    <TbReportSearch />
+                    <span>Meus Animais Reportados</span>
+                </button>
+            </div>
+            
+            <MissingList animals={missingAnimals} loading={loading} />
+
+            {isReportModalOpen && (
+                <MissingReportModal 
+                    onClose={() => setIsReportModalOpen(false)} 
+                    onSuccess={fetchMissingAnimals}
+                />
+            )}
+
+            {isMyReportsModalOpen && (
+                <MyReportsModal 
+                    animals={myReportedAnimals}
+                    onClose={() => setIsMyReportsModalOpen(false)}
+                    onUpdate={handleOpenMyReports}
+                />
+            )}
+        </div>
     );
-    return dist <= 10; // raio de 10km
-  });
-
-  // 3. Criar alerta para cada usuário próximo
-  for (const user of nearbyUsers) {
-    await supabase.from('alerts').insert([
-      {
-        user_id: user.id,
-        animal_id: animal.id,
-        message: `Animal desaparecido perto de você: ${animal.petName}`,
-        read: false
-      }
-    ]);
-  }
 }
-import MissingHomePage from './componentes/missinghomepage';
-import MissingForm from "./componentes/missingform.jsx";
-import "./componentes/missing.css";
-
-
-
-
-const MissingAnimalPage = () => {
-  // Exemplo de uso: após cadastrar animal, chame alertNearbyUsers(animal)
-  // Passe a função para o formulário se quiser usar como callback
-  return (
-    <div className="missing-animal-page">
-      <MissingHomePage />
-    </div>
-  );
-};
 
 export default MissingAnimalPage;
