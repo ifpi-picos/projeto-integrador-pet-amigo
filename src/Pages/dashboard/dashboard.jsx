@@ -9,7 +9,7 @@ import { FaPaw } from "react-icons/fa";
 import { PiMonitor } from "react-icons/pi"; // Ícone para o aviso desktop
 
 // CSS
-import './Dashboard.css';
+import './dashboard.css';
 
 function Dashboard() {
     const { profile, loading } = useAuth();
