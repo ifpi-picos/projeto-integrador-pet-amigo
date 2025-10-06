@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import LayoutNav from "./Layout/LayoutNav.jsx";
+import AdminRoute from './Components/AdminRoute.jsx';
 
 import LandingPage from "./Pages/landingPage/landing.jsx";
 import Auth from "./Pages/auth/auth.jsx";
@@ -14,6 +15,7 @@ import CadastroAnimal from "./Pages/CadastroAnimal/CadastroAnimal.jsx";
 import MissingAnimalPage from './Pages/missinganimal/missinganimal.jsx';
 import Dashboard from "./Pages/dashboard/dashboard.jsx";
 import Settings from "./Pages/settingsPage/settings.jsx";
+import AdminPanel from "./Pages/AdminPanel/AdminPanel.jsx"
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
         <Route path="/cadastro-animal" element={<CadastroAnimal />} />
         <Route path="/missinganimal" element={<MissingAnimalPage />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/panel" element={<AdminRoute> <AdminPanel /> </AdminRoute>}/>
 
       </Route>
     </Routes>

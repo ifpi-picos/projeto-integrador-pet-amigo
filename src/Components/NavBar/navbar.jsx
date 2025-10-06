@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./navbar.css";
 import { NavLink, useNavigate } from "react-router-dom"; 
 import { supabase } from "../../supabaseClient";
+import { useAuth } from "@/context/AuthContext"; // Importa o hook de autenticação
+
+// Ícones
 import { TbSettingsFilled, TbMoonFilled, TbSunFilled } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
 import { HiVideoCamera } from "react-icons/hi";
@@ -9,10 +12,10 @@ import { GoHomeFill } from "react-icons/go";
 import { LuLogOut } from "react-icons/lu";
 import { MdError } from "react-icons/md";
 import { FaShieldDog } from "react-icons/fa6";
+import { FaShield } from "react-icons/fa6";
 import logo from "@/assets/logo.png";
 
-
-// A lógica getInitialTheme e useEffect para o tema permanecem as mesmas
+// Função para obter o tema inicial (escuro ou claro)
 const getInitialTheme = () => {
     if (typeof window !== 'undefined' && window.localStorage) {
         const storedPrefs = window.localStorage.getItem('theme');
@@ -30,6 +33,7 @@ const getInitialTheme = () => {
 function Navbar() {
     const [isNightMode, setIsNightMode] = useState(getInitialTheme);
     const navigate = useNavigate();
+    const { profile } = useAuth(); // Pega os dados do perfil do usuário logado
 
     useEffect(() => {
         if (isNightMode) {
@@ -56,7 +60,8 @@ function Navbar() {
 
     return (
         <nav className="sidebar">
-            <ul>
+            {/* LISTA DE LINKS PRINCIPAIS */}
+            <ul className="sidebar-main-links">
                 <li className="sidebar-item-logo">
                     <NavLink to="/home" className="sidebar-logo" end>
                         <span className="sidebar-icon">
@@ -96,14 +101,26 @@ function Navbar() {
                         <span className="sidebar-text">Perfil</span>
                     </NavLink>
                 </li>
+            </ul>
 
-                <li className="sidebar-item sidebar-item-push-to-bottom">
+            {/* LISTA DE LINKS DO RODAPÉ */}
+            <ul className="sidebar-footer">
+                {/* Renderização Condicional do Botão de Moderação */}
+                {profile && profile.role === 'admin' && (
+                    <li className="sidebar-item">
+                        <NavLink to="/panel">
+                            <span className="sidebar-icon"><FaShield /></span>
+                            <span className="sidebar-text">Moderação</span>
+                        </NavLink>
+                    </li>
+                )}
+                
+                <li className="sidebar-item">
                     <NavLink to="/settings">
                         <span className="sidebar-icon"><TbSettingsFilled /></span>
-                        <span className="sidebar-text">Settings</span>
+                        <span className="sidebar-text">Configurações</span>
                     </NavLink>
                 </li>
-                
                 <li className="sidebar-item night-mode-item" onClick={toggleNightMode}>
                     <span className="sidebar-icon">{isNightMode ? <TbSunFilled /> : <TbMoonFilled />}</span>
                     <span className="sidebar-text">Modo Noturno</span>
@@ -112,13 +129,9 @@ function Navbar() {
                         <span className="slider"></span>
                     </label>
                 </li>
-                
-                {/* CORREÇÃO: Adicionada a classe .sidebar-item ao <li> pai do botão */}
                 <li className="sidebar-item">
                     <button onClick={handleSignOut} className="logout-button">
-                        <span className="sidebar-icon">
-                            <LuLogOut />
-                        </span>
+                        <span className="sidebar-icon"><LuLogOut /></span>
                         <span className="sidebar-text">Logout</span>
                     </button>
                 </li>

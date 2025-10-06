@@ -1,17 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/context/AuthContext'; // O hook de autenticação já está aqui
 
 // Ícones
 import { TbSettingsFilled } from "react-icons/tb";
 import { MdError } from "react-icons/md";
 import { FaPaw } from "react-icons/fa";
-import { PiMonitor } from "react-icons/pi"; // Ícone para o aviso desktop
+import { PiMonitor } from "react-icons/pi";
+import { FaShield } from "react-icons/fa6";
 
 // CSS
 import './dashboard.css';
 
 function Dashboard() {
+    // Pega os dados do perfil, incluindo o 'role'
     const { profile, loading } = useAuth();
 
     if (loading) {
@@ -22,10 +24,10 @@ function Dashboard() {
 
     return (
         <>
-            {/* Aviso para telas grandes (só aparece em desktop) */}
+            {/* Aviso para telas grandes */}
             <div className="desktop-warning">
                 <PiMonitor />
-                <h1>O Pet Amigo é otimizado para dispositivos móveis</h1>
+                <h1>Esta página é otimizada apenas para dispositivos móveis</h1>
                 <p>Para a melhor experiência, por favor, acesse em seu celular ou diminua a largura da sua janela.</p>
             </div>
 
@@ -51,6 +53,17 @@ function Dashboard() {
                             <p>Reporte ou veja os alertas.</p>
                         </div>
                     </Link>
+                    
+                    {/* RENDERIZAÇÃO CONDICIONAL DO CARD DE ADMIN */}
+                    {profile && profile.role === 'admin' && (
+                        <Link to="/panel" className='dashboard-card secondary admin-card'>
+                            <FaShield className='card-icon' />
+                            <div className='card-text'>
+                                <h2>Painel de Administrador</h2>
+                                <p>Estatísticas e moderação do Pet Amigo.</p>
+                            </div>
+                        </Link>
+                    )}
                 </div>
                 
                 <Link to="/settings" className='dashboard-settings-link'>

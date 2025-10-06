@@ -12,6 +12,7 @@
 :root {
   /* Cores principais */
   --green-primary: #26cc6b;
+  --green-darker: #1e9e4c;
   --white-background: #f4f4f4;        /* Usado para fundo principal da página no tema claro */
   --lightgray-background: #dddddd;    /* Usado para fundo da sidebar no tema claro */
   --darkgray-background: #8d8d8d;     /* Usado para ícones/texto */
