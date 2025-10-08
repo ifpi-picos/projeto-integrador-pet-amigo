@@ -16,6 +16,7 @@ import MissingAnimalPage from './Pages/missinganimal/missinganimal.jsx';
 import Dashboard from "./Pages/dashboard/dashboard.jsx";
 import Settings from "./Pages/settingsPage/settings.jsx";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel.jsx"
+import CommunityPage from "./Pages/Comunidade/CommunityPage.jsx";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/missinganimal" element={<MissingAnimalPage />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/panel" element={<AdminRoute> <AdminPanel /> </AdminRoute>}/>
+        <Route path="/community" element={<CommunityPage />} />
 
       </Route>
     </Routes>

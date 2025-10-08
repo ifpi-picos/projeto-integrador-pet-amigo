@@ -1,0 +1,141 @@
+@import '../../context/variables.css';
+
+.community-page-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Cria as duas colunas */
+    width: 100%;
+    min-height: 100vh; /* Ocupa a altura total da tela */
+    background-color: var(--white-background);
+}
+
+/* --- COLUNA DA IMAGEM (ESQUERDA) --- */
+.community-image-column {
+    height: 92vh;
+    position: sticky; /* Faz a imagem ficar fixa enquanto rola o conteúdo (opcional) */
+    top: 0;
+}
+
+.community-image-column img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
+    border-radius: 30px;
+}
+
+/* --- COLUNA DO CONTEÚDO (DIREITA) --- */
+.community-content-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza o conteúdo verticalmente */
+    padding: 4rem;
+}
+
+.community-header {
+    text-align: left; /* Alinha o texto à esquerda */
+    margin-bottom: 2.5rem;
+}
+
+.community-header h1 {
+    font-family: var(--font-main);
+    font-size: 2.8rem;
+    color: var(--black-text-details);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.community-header p {
+    font-size: 1.1rem;
+    color: var(--darkgray-background);
+    margin-top: 1rem;
+    max-width: 500px;
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.benefits-list li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.benefit-icon {
+    font-size: 2rem;
+    color: var(--green-primary);
+    flex-shrink: 0;
+}
+
+.benefit-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.benefit-text strong {
+    font-weight: 600;
+    color: var(--black-text-details);
+    font-size: 1.1rem;
+}
+
+.benefit-text span {
+    font-size: 0.95rem;
+    color: var(--darkgray-background);
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+    background-color: var(--green-primary);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    align-self: flex-start; /* Alinha o botão à esquerda */
+}
+
+.cta-button:hover {
+    background-color: var(--green-darker);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(var(--rgb-green-primary-values), 0.4);
+}
+
+.cta-button svg {
+    font-size: 1.5rem;
+}
+
+/* --- RESPONSIVIDADE (MOBILE) --- */
+@media (max-width: 900px) {
+    .community-page-container {
+        grid-template-columns: 1fr; /* Muda para uma única coluna */
+    }
+
+    .community-image-column {
+        height: 300px; /* Altura fixa para a imagem no mobile */
+        position: static; /* Remove o 'sticky' */
+    }
+
+    .community-content-column {
+        padding: 0 1rem;
+        justify-content: flex-start;
+    }
+
+    .community-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .cta-button {
+        width: 100%; /* Botão ocupa a largura total no mobile */
+    }
+}

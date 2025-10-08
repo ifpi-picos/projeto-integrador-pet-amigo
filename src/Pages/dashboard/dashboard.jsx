@@ -8,6 +8,7 @@ import { MdError } from "react-icons/md";
 import { FaPaw } from "react-icons/fa";
 import { PiMonitor } from "react-icons/pi";
 import { FaShield } from "react-icons/fa6";
+import { IoChatbubbles } from "react-icons/io5";
 
 // CSS
 import './dashboard.css';
@@ -51,6 +52,13 @@ function Dashboard() {
                         <div className='card-text'>
                             <h2>Animais Desaparecidos</h2>
                             <p>Reporte ou veja os alertas.</p>
+                        </div>
+                    </Link>
+                    <Link to="/community" className='dashboard-card secondary'>
+                        <IoChatbubbles className='card-icon' />
+                        <div className='card-text'>
+                            <h2>Comunidade</h2>
+                            <p>Participe da nossa comunidade no WhatsApp.</p>
                         </div>
                     </Link>
                     

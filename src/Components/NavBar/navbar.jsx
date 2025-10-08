@@ -14,6 +14,8 @@ import { MdError } from "react-icons/md";
 import { FaShieldDog } from "react-icons/fa6";
 import { FaShield } from "react-icons/fa6";
 import logo from "@/assets/logo.png";
+import { IoChatbubbles } from "react-icons/io5";
+
 
 // Função para obter o tema inicial (escuro ou claro)
 const getInitialTheme = () => {
@@ -99,6 +101,12 @@ function Navbar() {
                     <NavLink to="/profile">
                         <span className="sidebar-icon"><FaUser /></span>
                         <span className="sidebar-text">Perfil</span>
+                    </NavLink>
+                </li>
+                <li className="sidebar-item sidebar-mobile-remove">
+                    <NavLink to="/community">
+                        <span className="sidebar-icon"><IoChatbubbles /></span>
+                        <span className="sidebar-text">Comunidade</span>
                     </NavLink>
                 </li>
             </ul>
