@@ -252,6 +252,7 @@
     font-family: var(--font-main);
     border-bottom: 1px solid #eee;
     padding-bottom: 0.75rem;
+    color: var(--black-text-details);
 }
 
 .ad-create-form {
@@ -376,5 +377,15 @@
     .charts-grid,
     .admin-actions {
         grid-template-columns: 1fr; /* 1 coluna para celulares */
+    }
+
+    .modal-content {
+        max-width: 85%;
+        max-height: 80vh;
+    }
+
+    .ad-create-form {
+        grid-template-columns: 1fr;
+        width: 100%;
     }
 }
