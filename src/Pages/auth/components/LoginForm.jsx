@@ -94,6 +94,8 @@ function LoginForm({ onSwitchToRegister }) {
                     {loading ? 'Entrando...' : 'Entrar'}
                 </button>
 
+                {/* PARA SER IMPLEMENTADO MAIS TARDE...
+
                 <div className="form-divider">
                     <hr />
                     <span>ou</span>
@@ -104,6 +106,9 @@ function LoginForm({ onSwitchToRegister }) {
                     <FcGoogle />
                     Entrar com Google
                 </button>
+
+                */}
+                
             </form>
 
             <p className="switch-view-text">
